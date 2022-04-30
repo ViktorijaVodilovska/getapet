@@ -9,7 +9,7 @@ public class PetController {
 
     @GetMapping
     public String getAllPets() {
-        return "";
+        return "products";
     }
 
     @GetMapping("/{id}")
