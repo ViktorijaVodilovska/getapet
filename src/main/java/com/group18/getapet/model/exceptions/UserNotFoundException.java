@@ -1,4 +1,4 @@
 package com.group18.getapet.model.exceptions;
 
-public class UserNotFoundException {
+public class UserNotFoundException extends RuntimeException{
 }
