@@ -38,4 +38,32 @@ public class Advertisement {
 
     public Advertisement() {
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAdType(AdType adType) {
+        this.adType = adType;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 }
