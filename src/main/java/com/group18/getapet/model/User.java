@@ -2,13 +2,16 @@ package com.group18.getapet.model;
 
 import com.group18.getapet.model.enumerations.UserRole;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Entity
 @Table(name = "app_users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     private String username;
@@ -52,5 +55,30 @@ public class User {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }
