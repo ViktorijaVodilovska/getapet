@@ -4,6 +4,8 @@ import com.group18.getapet.model.Advertisement;
 import com.group18.getapet.model.Pet;
 import com.group18.getapet.model.User;
 import com.group18.getapet.model.enumerations.AdType;
+import com.group18.getapet.model.exceptions.AdTypeNotFound;
+import com.group18.getapet.model.exceptions.AdvertisementNotFoundException;
 import com.group18.getapet.repository.AdvertisementRepository;
 import com.group18.getapet.repository.PetRepository;
 import com.group18.getapet.repository.UserRepository;
@@ -58,6 +60,16 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         advertisement.setLocation(location);
         advertisement.setPrice(price);
         return this.advertisementRepository.save(advertisement);
+    }
+
+    @Override
+    public List<Advertisement> listAllByAdType(AdType adType) {
+        if(adType != null){
+            return this.advertisementRepository.findAllByAdType(adType);
+        }
+        else{
+            throw new AdTypeNotFound();
+        }
     }
 
 }

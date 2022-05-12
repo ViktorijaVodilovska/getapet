@@ -15,4 +15,6 @@ public interface AdvertisementService {
     Advertisement save(Advertisement advertisement);
     Advertisement create(String title, AdType adType, Pet pet, User user, String location, Integer price);
     Advertisement update(Long id, String title, AdType adType, Pet pet, User user, String location, Integer price);
+    List<Advertisement> listAllByAdType(AdType adType);
+
 }
