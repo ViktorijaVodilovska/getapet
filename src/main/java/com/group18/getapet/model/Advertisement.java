@@ -2,9 +2,10 @@ package com.group18.getapet.model;
 
 import com.group18.getapet.model.enumerations.AdType;
 import lombok.Data;
+import lombok.Setter;
 
 import javax.persistence.*;
-
+@Setter
 @Data
 @Entity
 public class Advertisement {
@@ -39,31 +40,5 @@ public class Advertisement {
     public Advertisement() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setAdType(AdType adType) {
-        this.adType = adType;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
 }
