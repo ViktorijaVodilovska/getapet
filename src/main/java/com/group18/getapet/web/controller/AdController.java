@@ -15,16 +15,17 @@ import java.util.List;
 public class AdController {
     private final AdsService adsservice;
     public AdController(AdsService adsservice){
-      this adsservice = adsservice;
+
+      this.adsservice = adsservice;
     }
 
     @GetMapping({"/ads"})
     public String seeAds(@RequestParam AdType type, Model model) {
         List<Advertisement> ads;
         if(type == null)
-            ads = this.adsservice.listAll();
+         ads = this.adsservice.listAll();
         else {
-            ads = this.adsservice.filter(type);
+           ads = this.adsservice.filter(type);
         }
         model.addAttribute("ads", ads);
         return "index";
@@ -36,7 +37,7 @@ public class AdController {
                          @RequestParam User user,
                          @RequestParam String location,
                          @RequestParam Integer price){
-        this.adsservice.create(title, adType, pet, user, location, price);
+       this.adsservice.create(title, adType, pet, user, location, price);
         return "redirect:/ads";
     }
     @PostMapping("/ads/{title}")
