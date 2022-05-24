@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String username;
 
     private String password;
@@ -32,5 +31,26 @@ public class User {
     }
 
     public User() {
+    }
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

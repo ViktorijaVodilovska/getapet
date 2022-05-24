@@ -2,9 +2,10 @@ package com.group18.getapet.model;
 
 import com.group18.getapet.model.enumerations.AdType;
 import lombok.Data;
+import lombok.Setter;
 
 import javax.persistence.*;
-
+@Setter
 @Data
 @Entity
 public class Advertisement {
@@ -38,4 +39,6 @@ public class Advertisement {
 
     public Advertisement() {
     }
+
+
 }

@@ -38,4 +38,28 @@ public class Pet {
 
     public Pet() {
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setPetType(PetType petType) {
+        this.petType = petType;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setPetSize(PetSize petSize) {
+        this.petSize = petSize;
+    }
+
+    public void setPetGender(PetGender petGender) {
+        this.petGender = petGender;
+    }
 }
