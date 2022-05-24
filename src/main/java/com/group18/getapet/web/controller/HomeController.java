@@ -4,6 +4,7 @@ import com.group18.getapet.model.Advertisement;
 import com.group18.getapet.model.Pet;
 import com.group18.getapet.model.User;
 import com.group18.getapet.model.enumerations.AdType;
+import com.group18.getapet.service.AdvertisementService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +21,10 @@ import java.util.List;
 @Controller
 @RequestMapping("")
 public class HomeController {
-    private final AdsService adsservice;
-    public HomeController(AdsService adsservice){
-      this adsservice = adsservice;
+    private final AdvertisementService adsservice;
+    public HomeController( AdvertisementService adsservice1){
+        this.adsservice = adsservice1;
+
     }
 
     @GetMapping({"/home"})
