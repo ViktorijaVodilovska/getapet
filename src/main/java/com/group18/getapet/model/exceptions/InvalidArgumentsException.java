@@ -6,3 +6,4 @@ public class InvalidArgumentsException extends RuntimeException {
         super("Invalid arguments exception");
     }
 }
+
