@@ -68,5 +68,4 @@ public class UserServiceImpl implements UserService {
         user.setRole(role);
         return this.userRepository.save(user);
     }
-
 }

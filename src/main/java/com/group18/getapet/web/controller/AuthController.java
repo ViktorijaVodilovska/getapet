@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthService authService;
