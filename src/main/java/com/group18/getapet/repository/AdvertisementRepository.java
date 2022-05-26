@@ -13,6 +13,6 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Optional<Advertisement> findById(Long id);
     void deleteById(Long id);
     Advertisement save(Advertisement advertisement);
-    //filter
+    List<Advertisement> findAllByTitleContainingOrAdTypeContainingOrPetContainingOrUserContainingOrLocationContaining(String searchTerm);
     List<Advertisement> findAllByAdType(AdType adType);
 }
