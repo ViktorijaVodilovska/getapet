@@ -30,7 +30,7 @@ public class AuthController {
         return "";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public String register(@RequestParam String username,
                            @RequestParam String password,
                            @RequestParam String repeatedPassword,
@@ -50,7 +50,7 @@ public class AuthController {
         return "";
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public String login(HttpServletRequest request, Model model) {
         User user = null;
         try{

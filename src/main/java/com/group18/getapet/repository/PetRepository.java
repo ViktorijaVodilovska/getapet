@@ -20,5 +20,4 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     Pet save(Pet pet);
 
-    List<Pet> findByPetTypeContainingOrAgeContainingOrBreedContainingOrPetSizeContainingOrPetGenderContaining(String search);
 }

@@ -20,15 +20,15 @@ import java.util.List;
 //See pet ads (for the button, redirect to /ads) *moze i so thymeleaf redirects
 //Create an ad (for the button, redirect to /ads/add)
 @Controller
-@RequestMapping("")
+@RequestMapping({"/home","/"})
 public class HomeController {
     private final AdvertisementService adsservice;
     public HomeController(AdvertisementService adsservice){
         this.adsservice = adsservice;
     }
 
-    @GetMapping({"/home"})
-    public String seeAds(@RequestParam AdType type, Model model) {
+    @GetMapping
+    public String seeAds(@RequestParam(required = false) AdType type, Model model) {
         List<Advertisement> ads;
         if(type == null)
             ads = this.adsservice.listAll();

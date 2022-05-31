@@ -32,11 +32,6 @@ public class PetServiceImpl implements PetService {
         return this.petRepository.findById(id);
     }
 
-    public List<Pet> search(String searchTerm) {
-        return this.petRepository.findByPetTypeContainingOrAgeContainingOrBreedContainingOrPetSizeContainingOrPetGenderContaining(
-            searchTerm);
-    }
-
     @Override
     public void deleteById(Long id) {
         this.petRepository.deleteById(id);

@@ -37,11 +37,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return this.advertisementRepository.findById(id);
     }
 
-    public List<Advertisement> search(String searchTerm) {
-        return this.advertisementRepository.findAllByTitleContainingOrAdTypeContainingOrPetContainingOrUserContainingOrLocationContaining(
-            searchTerm);
-    }
-
     @Override
     public void deleteById(Long id) {
         this.advertisementRepository.deleteById(id);
