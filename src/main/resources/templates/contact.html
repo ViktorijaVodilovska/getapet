@@ -12,14 +12,14 @@
     <title>Get A Pet - Contact</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <link rel="stylesheet" href="css/tooplate-main.css">
-    <link rel="stylesheet" href="css/owl.css">
-    <link rel="stylesheet" href="css/flex-slider.css">
+    <link rel="stylesheet" href="/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/tooplate-main.css">
+    <link rel="stylesheet" href="/css/owl.css">
+    <link rel="stylesheet" href="/css/flex-slider.css">
 <!--
 Tooplate 2114 Pixie
 https://www.tooplate.com/view/2114-pixie
@@ -42,25 +42,24 @@ https://www.tooplate.com/view/2114-pixie
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
-        <a class="navbar-brand" href="#"><img src="images/logo.png" alt=""></a>
+        <a class="navbar-brand" href="#"><img src="/images/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" th:href="@{'/home'}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="products.html">Products
-                <span class="sr-only">(current)</span>
+              <a class="nav-link" th:href="@{'/pets'}">Pet Ads
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About Us</a>
+              <a class="nav-link" th:href="@{'/home/about'}">About Us</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="contact.html">Contact Us</a>
+              <a class="nav-link" th:href="@{'/home/contact'}">Contact Us</a>
               <span class="sr-only">(current)</span>
             </li>
           </ul>
@@ -145,17 +144,17 @@ https://www.tooplate.com/view/2114-pixie
         <div class="row">
           <div class="col-md-12">
             <div class="logo">
-              <img src="images/logo.png" alt="">
+              <img src="/images/logo.png" alt="">
             </div>
           </div>
           <div class="col-md-12">
             <div class="footer-menu">
               <ul>
-                <li><a href="#">Home</a></li>
+                <li><a th:href="@{'/home'}">Home</a></li>
                 <li><a href="#">Help</a></li>
                 <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">How It Works ?</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a th:href="@{'/home/contact'}">Contact Us</a></li>
               </ul>
             </div>
           </div>
@@ -181,15 +180,15 @@ https://www.tooplate.com/view/2114-pixie
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="jquery/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
     <!-- Additional Scripts -->
-    <script src="js/custom.js"></script>
-    <script src="js/owl.js"></script>
-    <script src="js/isotope.js"></script>
-    <script src="js/flex-slider.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="/js/owl.js"></script>
+    <script src="/js/isotope.js"></script>
+    <script src="/js/flex-slider.js"></script>
 
 
     <script language = "text/Javascript"> 

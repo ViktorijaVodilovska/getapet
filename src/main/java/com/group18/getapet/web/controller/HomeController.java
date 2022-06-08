@@ -48,4 +48,14 @@ public class HomeController {
         this.adsservice.create(title, adType, pet, user, location, price);
         return "redirect:/ads/add";
     }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
+    }
 }

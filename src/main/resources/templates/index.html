@@ -53,13 +53,13 @@ https://www.tooplate.com/view/2114-pixie
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="products.html">Pet Ads</a>
+              <a class="nav-link" th:href="@{'/pets'}">Pet Ads</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About Us</a>
+              <a class="nav-link" th:href="@{'/home/about'}">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact Us</a>
+              <a class="nav-link" th:href="@{'/home/contact'}">Contact Us</a>
             </li>
             <li class="nav-item" >
               <a class="nav-link" style="color: rgb(146, 183, 243);">Log In</a> 
@@ -85,8 +85,8 @@ https://www.tooplate.com/view/2114-pixie
               <br><br>You can search for pets or create an ad for a pet.</p>
               <div class="main-button" style="flex-direction: row;">
                 <div style="justify-content:right">
-                  <a href="#">See Pet Ads</a>
-                  <a href="#", style="position: right;">Create an Ad</a>
+                  <a th:href="@{'/pets'}">See Pet Ads</a>
+                  <a th:href="@{'/pets/add'}" style="position: right;">Create an Ad</a>
                 </div>
                 
               </div>
@@ -276,11 +276,11 @@ https://www.tooplate.com/view/2114-pixie
           <div class="col-md-12">
             <div class="footer-menu">
               <ul>
-                <li><a href="#">Home</a></li>
+                <li><a th:href="@{'/home'}">Home</a></li>
                 <li><a href="#">Help</a></li>
                 <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">How It Works ?</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a th:href="@{'/home/contact'}">Contact Us</a></li>
               </ul>
             </div>
           </div>
