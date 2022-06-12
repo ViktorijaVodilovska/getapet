@@ -16,6 +16,7 @@ public class Advertisement {
 
     private String title;
 
+    @Enumerated(value = EnumType.STRING)
     private AdType adType;
 
     @ManyToOne
