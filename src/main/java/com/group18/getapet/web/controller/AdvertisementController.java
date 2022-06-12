@@ -57,13 +57,12 @@ public class AdvertisementController {
     public String addAdvertisement(HttpServletRequest request,
                                    @RequestParam String title,
                                    @RequestParam(required = false) AdType adType,
-                                   @RequestParam Long pet,
+                                   @RequestParam Pet pet,
                                    @RequestParam String user,
-                                   @RequestParam String location,
-                                   @RequestParam Integer price) { //za site polinja
+                                   @RequestParam String location) { //za site polinja
 //        String username =request.getRemoteUser();
         User user1=this.userService.findByUsername(user).orElseThrow(()->new UserNotFoundException(user));
-        this.advertisementService.create(title,adType,pet,user1,location,price);
+        this.advertisementService.create(title,adType,pet,user1,location);
 
         return "redirect:/ads";
     }
@@ -75,11 +74,10 @@ public class AdvertisementController {
                             @RequestParam AdType adType,
                             @RequestParam Pet pet,
                             @RequestParam User user,
-                            @RequestParam String location,
-                            @RequestParam Integer price) { //za site polinja
+                            @RequestParam String location) { //za site polinja
         String username =request.getRemoteUser();
         User user1=this.userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-        this.advertisementService.update(id,title,adType,pet,user1,location,price);
+        this.advertisementService.update(id,title,adType,pet,user1,location);
         return "redirect:/ads";
     }
 

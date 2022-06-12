@@ -26,15 +26,12 @@ public class Advertisement {
 
     private String location;
 
-    private Integer price;
-
-    public Advertisement(String title, AdType adType, Pet pet, User user, String location, Integer price) {
+    public Advertisement(String title, AdType adType, Pet pet, User user, String location) {
         this.title = title;
         this.adType = adType;
         this.pet = pet;
         this.user = user;
         this.location = location;
-        this.price = price;
     }
 
     public Advertisement() {

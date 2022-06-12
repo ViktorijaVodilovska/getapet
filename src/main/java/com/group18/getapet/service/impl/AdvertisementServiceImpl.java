@@ -20,11 +20,13 @@ import com.group18.getapet.service.AdvertisementService;
 public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final AdvertisementRepository advertisementRepository;
+    private final UserRepository userRepository;
 
     public AdvertisementServiceImpl(UserRepository userRepository,
                                     PetRepository petRepository,
                                     AdvertisementRepository advertisementRepository) {
         this.advertisementRepository = advertisementRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -45,12 +47,17 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Advertisement save(Advertisement advertisement) {
+        User user = advertisement.getUser();
+        user.getAds().add(advertisement);
+        userRepository.save(user);
         return this.advertisementRepository.save(advertisement);
     }
 
     @Override
-    public Advertisement create(String title, AdType adType, Pet pet, User user, String location, Integer price) {
-        Advertisement advertisement = new Advertisement(title, adType, pet, user, location, price);
+    public Advertisement create(String title, AdType adType, Pet pet, User user, String location) {
+        Advertisement advertisement = new Advertisement(title, adType, pet, user, location);
+        user.getAds().add(advertisement);
+        userRepository.save(user);
         return this.advertisementRepository.save(advertisement);
     }
 
@@ -60,15 +67,15 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                                 AdType adType,
                                 Pet pet,
                                 User user,
-                                String location,
-                                Integer price) {
+                                String location) {
         Advertisement advertisement = this.advertisementRepository.getById(id);
         advertisement.setTitle(title);
         advertisement.setAdType(adType);
         advertisement.setPet(pet);
         advertisement.setUser(user);
         advertisement.setLocation(location);
-        advertisement.setPrice(price);
+        user.getAds().add(advertisement);
+        userRepository.save(user);
         return this.advertisementRepository.save(advertisement);
     }
 

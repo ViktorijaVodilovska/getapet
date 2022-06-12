@@ -57,7 +57,7 @@
                     <a class="nav-link" href="index.html">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="products.html">Pet Ads
+                    <a class="nav-link" href="ads.html">Pet Ads
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -89,49 +89,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12" th:if="${user.getAds().size() > 0}">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">Ad title</th>
-                            <th scope="col">Ad type</th>
-                            <th scope="col">Pet</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="ad : ${user.getAds()}" class="product">
-                            <td th:text="${ad.getTitle()}"></td>
-                            <td th:text="${ad.getAdType()}"></td>
-                            <td th:text="${ad.getPet().getId()}"></td>
-<!--                            <td class="text-right">-->
-<!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
-<!--                                    <form th:action="@{'/products/delete/{id}' (id=${product.getId()})}"-->
-<!--                                          th:method="DELETE">-->
-<!--                                        <button type="submit"-->
-<!--                                                class="btn btn-sm btn-danger delete-product">-->
-<!--                                            <i class="fa fa-trash">Delete</i>-->
-<!--                                        </button>-->
-<!--                                    </form>-->
-<!--                                </th:block>-->
-<!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
-<!--                                    <a th:href="@{'/products/edit-form/{id}' (id=${product.getId()})}"-->
-<!--                                       class="btn btn-sm btn-info edit-product">-->
-<!--                                        <i class="fa fa-trash">Edit</i>-->
-<!--                                    </a>-->
-<!--                                </th:block>-->
-<!--                                <form th:action="@{'/shopping-cart/add-product/{id}' (id=${product.getId()})}"-->
-<!--                                      th:method="POST"-->
-<!--                                      sec:authorize="isAuthenticated()">-->
-<!--                                    <button type="submit"-->
-<!--                                            class="btn btn-sm btn-primary cart-product">-->
-<!--                                        <i class="fa fa-trash">Add product to cart</i>-->
-<!--                                    </button>-->
-<!--                                </form>-->
-<!--                            </td>-->
-                        </tr>
-                        </tbody>
-                    </table>
+            <div class="col-12" th:if="${userAds.size() > 0}">
+                <div class="row">
+                    <th:block th:each="ad : ${userAds}" }>
+
+                        <div class="card" style="width: 18rem;">
+                            <a th:href="@{'/ads/{id}' (id=${ad.getId()})}" style="color: inherit">
+                                <div class="card-header">
+                                    <h2 th:text="${ad.getTitle()}"></h2>
+                                </div>
+                                <img class="card-img-top" th:src="${ad.getPet().getImage()}" alt="Card image cap"
+                                     src="">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${ad.getPet().getPetType()}"></h5>
+                                    <h7 th:text="${ad.getLocation()}">Skopje</h7>
+                                </div>
+                            </a>
+                        </div>
+
+                    </th:block>
                 </div>
             </div>
 
@@ -191,10 +167,10 @@
 <script src="js/flex-slider.js"></script>
 
 <script language="text/Javascript">
-    cleared[ 0 ] = cleared[ 1 ] = cleared[ 2 ] = 0; //set a cleared flag for each field
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
     function clearField(t) {                   //declaring the array outside of the
-        if (!cleared[ t.id ]) {                      // function makes it static and global
-            cleared[ t.id ] = 1;  // you could use true and false, but that's more typing
+        if (!cleared[t.id]) {                      // function makes it static and global
+            cleared[t.id] = 1;  // you could use true and false, but that's more typing
             t.value = '';         // with more chance of typos
             t.style.color = '#fff';
         }

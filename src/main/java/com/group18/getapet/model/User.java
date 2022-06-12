@@ -39,7 +39,7 @@ public class User implements UserDetails {
 
     private String surname;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Advertisement> ads;
 
     @Enumerated(value = EnumType.STRING)
