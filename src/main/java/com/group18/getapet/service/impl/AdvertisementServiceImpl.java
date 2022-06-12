@@ -81,4 +81,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         }
     }
 
+    @Override
+    public List<Advertisement> listAllByUser(User user) {
+        return this.advertisementRepository.findAllByUser(user);
+    }
+
 }

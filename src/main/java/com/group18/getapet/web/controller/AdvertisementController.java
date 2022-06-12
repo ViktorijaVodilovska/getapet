@@ -9,12 +9,10 @@ import com.group18.getapet.model.exceptions.AdvertisementNotFoundException;
 import com.group18.getapet.model.exceptions.UserNotFoundException;
 import com.group18.getapet.service.AdvertisementService;
 import com.group18.getapet.service.UserService;
-import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.ManyToOne;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -55,16 +53,16 @@ public class AdvertisementController {
     }
 
 
-    @PostMapping("/add")
+    @GetMapping("/add")
     public String addAdvertisement(HttpServletRequest request,
                                    @RequestParam String title,
-                                   @RequestParam AdType adType,
-                                   @RequestParam Pet pet,
-                                   @RequestParam User user,
+                                   @RequestParam(required = false) AdType adType,
+                                   @RequestParam Long pet,
+                                   @RequestParam String user,
                                    @RequestParam String location,
                                    @RequestParam Integer price) { //za site polinja
-        String username =request.getRemoteUser();
-        User user1=this.userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
+//        String username =request.getRemoteUser();
+        User user1=this.userService.findByUsername(user).orElseThrow(()->new UserNotFoundException(user));
         this.advertisementService.create(title,adType,pet,user1,location,price);
 
         return "redirect:/ads";

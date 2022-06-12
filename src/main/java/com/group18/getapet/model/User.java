@@ -1,14 +1,31 @@
 package com.group18.getapet.model;
 
-import com.group18.getapet.model.enumerations.UserRole;
-import lombok.Data;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.util.Collection;
+import com.group18.getapet.model.enumerations.UserRole;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "app_users")
 public class User implements UserDetails {
@@ -22,6 +39,9 @@ public class User implements UserDetails {
 
     private String surname;
 
+    @OneToMany
+    private List<Advertisement> ads;
+
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
@@ -30,30 +50,6 @@ public class User implements UserDetails {
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = role;
-    }
-
-    public User() {
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setRole(UserRole role) {
         this.role = role;
     }
 
@@ -80,5 +76,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public String getFullName() {
+        return this.name + " " + this.surname;
     }
 }
