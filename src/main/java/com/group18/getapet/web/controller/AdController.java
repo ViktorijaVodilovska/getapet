@@ -5,7 +5,7 @@ import com.group18.getapet.model.Pet;
 import com.group18.getapet.model.User;
 import com.group18.getapet.model.enumerations.AdType;
 import com.group18.getapet.service.AdsService;
-import com.group18.getapet.service.AdvertisementService;
+import com.group18.getapet.service.PetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,21 +15,27 @@ import java.util.List;
 @Controller
 @RequestMapping("")
 public class AdController {
+
     private final AdsService adsservice;
-    public AdController(AdsService adsservice){
+    private final PetService petService;
+
+    public AdController(AdsService adsservice, PetService petService){
 
         this.adsservice = adsservice;
+        this.petService = petService;
     }
 
     @GetMapping({"/ads"})
     public String seeAds(@RequestParam AdType type, Model model) {
         List<Advertisement> ads;
+        List<Pet> pets = this.petService.listAll();
         if(type == null)
             ads = this.adsservice.listAll();
         else {
             ads = this.adsservice.filter(type);
         }
         model.addAttribute("ads", ads);
+        model.addAttribute("pets", pets);
         return "index";
     }
     @PostMapping("/ads")

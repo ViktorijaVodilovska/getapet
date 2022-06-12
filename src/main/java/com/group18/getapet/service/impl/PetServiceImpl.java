@@ -43,19 +43,20 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Pet create(PetType petType, String breed, Integer age, PetSize petSize, PetGender petGender) {
-        Pet pet = new Pet(petType, breed, age, petSize, petGender);
+    public Pet create(PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
+        Pet pet = new Pet(petType, breed, age, image, petSize, petGender);
         return this.petRepository.save(pet);
     }
 
     @Override
-    public Pet update(Long id, PetType petType, String breed, Integer age, PetSize petSize, PetGender petGender) {
+    public Pet update(Long id, PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
         Pet pet = this.petRepository.getById(id);
         pet.setPetType(petType);
         pet.setBreed(breed);
         pet.setAge(age);
         pet.setPetSize(petSize);
         pet.setPetGender(petGender);
+        pet.setImage(image);
         return this.petRepository.save(pet);
     }
 }

@@ -5,10 +5,7 @@ import com.group18.getapet.model.enumerations.PetSize;
 import com.group18.getapet.model.enumerations.PetType;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -18,22 +15,28 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(value = EnumType.STRING)
     private PetType petType;
 
     private String breed;
 
     private Integer age;
 
+    @Enumerated(value = EnumType.STRING)
     private PetSize petSize;
 
+    @Enumerated(value = EnumType.STRING)
     private PetGender petGender;
 
-    public Pet(PetType petType, String breed, Integer age, PetSize petSize, PetGender petGender) {
+    private String image;
+
+    public Pet(PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
         this.petType = petType;
         this.breed = breed;
         this.age = age;
         this.petSize = petSize;
         this.petGender = petGender;
+        this.image = image;
     }
 
     public Pet() {
@@ -62,4 +65,9 @@ public class Pet {
     public void setPetGender(PetGender petGender) {
         this.petGender = petGender;
     }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }
