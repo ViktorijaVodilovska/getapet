@@ -54,8 +54,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Advertisement create(String title, AdType adType, Pet pet, User user, String location) {
-        Advertisement advertisement = new Advertisement(title, adType, pet, user, location);
+    public Advertisement create(String title, String description, AdType adType, Pet pet, User user, String location) {
+        Advertisement advertisement = new Advertisement(title, description, adType, pet, user, location);
         user.getAds().add(advertisement);
         userRepository.save(user);
         return this.advertisementRepository.save(advertisement);

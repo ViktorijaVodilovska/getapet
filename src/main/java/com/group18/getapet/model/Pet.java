@@ -3,17 +3,25 @@ package com.group18.getapet.model;
 import com.group18.getapet.model.enumerations.PetGender;
 import com.group18.getapet.model.enumerations.PetSize;
 import com.group18.getapet.model.enumerations.PetType;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
 
     @Enumerated(value = EnumType.STRING)
     private PetType petType;
@@ -39,35 +47,13 @@ public class Pet {
         this.image = image;
     }
 
-    public Pet() {
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPetType(PetType petType) {
+    public Pet(String name, PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
+        this.name = name;
         this.petType = petType;
-    }
-
-    public void setBreed(String breed) {
         this.breed = breed;
-    }
-
-    public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public void setPetSize(PetSize petSize) {
         this.petSize = petSize;
-    }
-
-    public void setPetGender(PetGender petGender) {
         this.petGender = petGender;
-    }
-
-    public void setImage(String image) {
         this.image = image;
     }
-
 }

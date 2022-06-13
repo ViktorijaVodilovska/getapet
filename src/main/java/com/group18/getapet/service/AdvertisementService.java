@@ -13,7 +13,7 @@ public interface AdvertisementService {
     Optional<Advertisement> findById(Long id);
     void deleteById(Long id);
     Advertisement save(Advertisement advertisement);
-    Advertisement create(String title, AdType adType, Pet pet, User user, String location);
+    Advertisement create(String title, String description, AdType adType, Pet pet, User user, String location);
     Advertisement update(Long id, String title, AdType adType, Pet pet, User user, String location);
     List<Advertisement> listAllByAdType(AdType adType);
     List<Advertisement> listAllByUser(User user);

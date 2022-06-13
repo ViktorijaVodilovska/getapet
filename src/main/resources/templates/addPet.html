@@ -77,6 +77,10 @@
     <div class="col-sm-6">
       <form th:method="POST" th:action="@{'/pets/add'}">
         <div class="form-group">
+          <label for="name">Pet name</label>
+          <input type="text" name="name" class="form-control" id="name" placeholder="Pet name">
+        </div>
+        <div class="form-group">
           <label for="petType">Pet type</label>
           <select name="petType" class="form-control" id="petType">
             <option th:each="type : ${T(com.group18.getapet.model.enumerations.PetType).values()}"

@@ -14,5 +14,5 @@ public interface PetService {
     void deleteById(Long id);
     Pet save(Pet pet);
     Pet create(PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender);
-    Pet update(Long id, PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender);
+    Pet update(Long id, String name, PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender);
 }

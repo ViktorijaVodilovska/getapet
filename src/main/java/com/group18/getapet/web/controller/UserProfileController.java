@@ -33,19 +33,20 @@ public class UserProfileController {
     }
 
     @GetMapping
-    public String getProfilePage(Model model, HttpServletRequest request){
+    public String getProfilePage(Model model, HttpServletRequest request) {
         String username=request.getRemoteUser();
-        User user=userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-        model.addAttribute("user",user);
-
+        User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        List<Advertisement> ads = advertisementService.listAllByUser(user);
+        model.addAttribute("user", user);
+        model.addAttribute("userAds", ads);
         return "user";
     }
 
     @GetMapping("/edit")
-    public String editProfile(Model model, HttpServletRequest request){
-        String username=request.getRemoteUser();
-        User user=userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-        model.addAttribute("user",user);
+    public String editProfile(Model model, HttpServletRequest request) {
+        String username = request.getRemoteUser();
+        User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        model.addAttribute("user", user);
 
         return "";
     }
@@ -58,22 +59,13 @@ public class UserProfileController {
             HttpServletRequest request
     ) {
         try {
-            String username=request.getRemoteUser();
-            User user=userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-            this.userService.update( username,  password,  name,surname,user.getRole() );
+            String username = request.getRemoteUser();
+            User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+            this.userService.update(username, password, name, surname, user.getRole());
             return "redirect:/profile";
         } catch (UsernameAlreadyExistsException | InvalidArgumentsException | PasswordsDoNotMatchException ex) {
             return "redirect:/profile/edit?hasError=true&&error=" + ex.getMessage();
         }
     }
 
-    @GetMapping("/ads")
-    public String listAds(Model model, HttpServletRequest request){
-        String username=request.getRemoteUser();
-        User user = userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-        List<Advertisement> ads = advertisementService.listAllByUser(user);
-        model.addAttribute("user", user);
-        model.addAttribute("userAds", ads);
-        return "user";
-    }
 }

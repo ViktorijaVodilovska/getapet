@@ -16,6 +16,8 @@ public class Advertisement {
 
     private String title;
 
+    private String description;
+
     @Enumerated(value = EnumType.STRING)
     private AdType adType;
 
@@ -27,8 +29,9 @@ public class Advertisement {
 
     private String location;
 
-    public Advertisement(String title, AdType adType, Pet pet, User user, String location) {
+    public Advertisement(String title, String description, AdType adType, Pet pet, User user, String location) {
         this.title = title;
+        this.description = description;
         this.adType = adType;
         this.pet = pet;
         this.user = user;

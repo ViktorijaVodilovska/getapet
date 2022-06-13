@@ -38,16 +38,6 @@ public class HomeController {
         model.addAttribute("ads", ads);
         return "index";
     }
-    @PostMapping("/home")
-    public String create(@RequestParam String title,
-                         @RequestParam AdType adType,
-                         @RequestParam Pet pet,
-                         @RequestParam User user,
-                         @RequestParam String location,
-                         @RequestParam Integer price){
-        this.adsservice.create(title, adType, pet, user, location, price);
-        return "redirect:/ads/add";
-    }
 
     @GetMapping("/about")
     public String about() {
