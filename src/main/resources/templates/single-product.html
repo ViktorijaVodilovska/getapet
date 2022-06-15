@@ -12,14 +12,15 @@
     <title>Get A Pet - Product Detail</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <link rel="stylesheet" href="css/tooplate-main.css">
-    <link rel="stylesheet" href="css/owl.css">
-    <link rel="stylesheet" href="css/flex-slider.css">
+
+    <link rel="stylesheet" href="/css/tooplate-main.css">
+    <link rel="stylesheet" href="/css/owl.css">
+    <link rel="stylesheet" href="/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/flex-slider.css">
 <!--
 Tooplate 2114 Pixie
 https://www.tooplate.com/view/2114-pixie
@@ -42,7 +43,7 @@ https://www.tooplate.com/view/2114-pixie
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
-        <a class="navbar-brand" href="#"><img src="images/logo.png" alt=""></a>
+        <a class="navbar-brand" href="#"><img src="../static/images/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -123,10 +124,16 @@ https://www.tooplate.com/view/2114-pixie
               <p>Carl is a baby hedhehog and was found on the street 1 week ago. He is looking for new home right now. If you are interested in keeping this cutie apply now!</p>
               <h5>2 months old<h5>
               <h6>Skopje</h6>
-              <form action="" method="get">
-                
-                <input type="submit" class="button" value="I am interested!" >
-              </form>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <form action="" method="get">
+                    <input type="submit" class="button" value="I am interested!" >
+                  </form>
+                  <form th:action="@{'/pets/single-pet'}">
+                    <input type="submit" class="button" value="The pet" style="margin-right: 20px">
+                  </form>
+
+                </div>
+
               <div class="down-content">
                 <div class="categories">
                   <h6>Category: <span><a href="#">Other</a>,<a href="#">Skopje</a></span></h6>

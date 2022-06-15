@@ -44,9 +44,14 @@ public class AdvertisementController {
             Advertisement advertisement = this.advertisementService.findById(id)
                     .orElseThrow(() -> new AdvertisementNotFoundException(id));
             model.addAttribute("advertisement", advertisement);
-            return "";
+            return "single-product";
         }
         return "redirect:/ads?error=Advertisement+was+not+found";
+    }
+
+    @GetMapping("/single-ad")
+    public String getSinglePet(){
+        return "single-product";
     }
 
     @GetMapping("/filter")

@@ -27,11 +27,11 @@ public class UserProfileController {
 
     @GetMapping
     public String getProfilePage(Model model, HttpServletRequest request){
-        String username=request.getRemoteUser();
-        User user=userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-        model.addAttribute("user",user);
+//        String username=request.getRemoteUser();
+//        User user=userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
+//        model.addAttribute("user",user);
 
-        return "";
+        return "user";
     }
     @GetMapping("/edit")
     public String editProfile(Model model, HttpServletRequest request){
