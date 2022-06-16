@@ -55,9 +55,9 @@ public class AdvertisementController {
     }
 
     @GetMapping("/filter")
-    public String getAdvertisementsByFilter(@RequestParam AdType adType,Model model) {
-        List<Advertisement>advertisementList=this.advertisementService.listAllByAdType(adType);
-        model.addAttribute("advertisementList",advertisementList);
+    public String getAdvertisementsByFilter(@RequestParam AdType adType, Model model) {
+        List<Advertisement> advertisementList = this.advertisementService.listAllByAdType(adType);
+        model.addAttribute("advertisementList", advertisementList);
         return "";
     }
 
@@ -71,14 +71,14 @@ public class AdvertisementController {
     @PostMapping("/add")
     public String addAdvertisement(HttpServletRequest request,
                                    @RequestParam String title,
+                                   @RequestParam String description,
                                    @RequestParam AdType adType,
                                    @RequestParam Long pet,
-                                   @RequestParam String location,
-                                   @RequestParam Integer price) { //za site polinja
+                                   @RequestParam String location) { //za site polinja
         String username = request.getRemoteUser();
-        User user1=this.userService.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
+        User user1 = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Pet p = this.petService.findById(pet).orElseThrow(() -> new PetNotFoundException(pet));
-        this.advertisementService.create(title,adType,p,user1,location,price);
+        this.advertisementService.create(title, description, adType, p, user1, location);
 
         return "redirect:/ads";
     }
@@ -95,7 +95,7 @@ public class AdvertisementController {
 
     @DeleteMapping("/delete/{id}")
     public String deleteAdvertisement(@PathVariable Long id) {
-        if(this.advertisementService.findById(id).isPresent()){
+        if (this.advertisementService.findById(id).isPresent()) {
             this.advertisementService.deleteById(id);
             return "redirect:/ads";
 
