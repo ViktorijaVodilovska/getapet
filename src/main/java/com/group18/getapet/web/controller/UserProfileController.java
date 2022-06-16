@@ -38,7 +38,7 @@ public class UserProfileController {
         User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         List<Advertisement> ads = advertisementService.listAllByUser(user);
         model.addAttribute("user", user);
-        model.addAttribute("userAds", ads);
+        model.addAttribute("ads", ads);
         return "user";
     }
 
@@ -59,6 +59,9 @@ public class UserProfileController {
             HttpServletRequest request
     ) {
         try {
+            if (name.equals("") || surname.equals("") || password.equals("")) {
+                throw new InvalidArgumentsException();
+            }
             String username = request.getRemoteUser();
             User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
             this.userService.update(username, password, name, surname, user.getRole());

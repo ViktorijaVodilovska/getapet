@@ -51,7 +51,7 @@ https://www.tooplate.com/view/2114-pixie
               <a class="nav-link" th:href="@{'/home'}">Home</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" th:href="@{'/pets'}">Pet Ads
+              <a class="nav-link" th:href="@{'/ads'}">Pet Ads
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -141,98 +141,27 @@ https://www.tooplate.com/view/2114-pixie
     </div>
   
     <div class="featured container no-gutter">
+      <div class="row">
+        <div class="col-12" th:if="${ads.size() > 0}">
+          <div class="row">
+            <th:block th:each="ad : ${ads}" }>
 
-        <div class="row posts">
-            <div id="1" class="item new col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-01.jpg" alt="">
-                  <h4>Dog</h4>
-                  <h6>User 1</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="2" class="item high col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-02.jpg" alt="">
-                  <h4>Cat</h4>
-                  <h6>User 2</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="3" class="item low col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-03.jpeg" alt="">
-                  <h4>Squirrel</h4>
-                  <h6>User 3</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="4" class="item low col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-04.jpg" alt="">
-                  <h4>Parrot</h4>
-                  <h6>User 4</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="5" class="item new high col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-05.jpg" alt="">
-                  <h4>Dog</h4>
-                  <h6>User 5</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="6" class="item new col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-06.jpg" alt="">
-                  <h4>Cat</h4>
-                  <h6>User 6</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="7" class="item new high col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-03.jpeg" alt="">
-                  <h4>Squirrel</h4>
-                  <h6>User 3</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="8" class="item low new col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-02.jpg" alt="">
-                  <h4>Cat</h4>
-                  <h6>User 2</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="9" class="item new col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-01.jpg" alt="">
-                  <h4>Dog</h4>
-                  <h6>User 1</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
+              <div class="card" style="width: 18rem;">
+                <a th:href="@{'/ads/{id}' (id=${ad.getId()})}" style="color: inherit">
+                  <div class="card-header">
+                    <h2 th:text="${ad.getTitle()}"></h2>
+                  </div>
+                  <img class="card-img-top" th:src="${ad.getPet().getImage()}" alt="Card image cap"
+                       src="">
+                  <div class="card-body">
+                    <h5 class="card-title" th:text="${ad.getPet().getName()}"></h5>
+                    <h7 th:text="${ad.getLocation()}">Skopje</h7>
+                  </div>
+                </a>
+              </div>
+
+            </th:block>
+          </div>
         </div>
     </div>
 

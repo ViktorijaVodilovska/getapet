@@ -43,8 +43,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Pet create(PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
-        Pet pet = new Pet(petType, breed, age, image, petSize, petGender);
+    public Pet create(String name, PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
+        Pet pet = new Pet(name,petType, breed, age, image, petSize, petGender);
         return this.petRepository.save(pet);
     }
 

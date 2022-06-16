@@ -38,17 +38,8 @@ public class Pet {
 
     private String image;
 
-    public Pet(PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
-        this.petType = petType;
-        this.breed = breed;
-        this.age = age;
-        this.petSize = petSize;
-        this.petGender = petGender;
-        this.image = image;
-    }
-
     public Pet(String name, PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
-        this.name = name;
+        this.name = name.isEmpty() ? "Unknown" : name;
         this.petType = petType;
         this.breed = breed;
         this.age = age;

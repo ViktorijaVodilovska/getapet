@@ -1,12 +1,19 @@
 package com.group18.getapet.model;
 
 import com.group18.getapet.model.enumerations.AdType;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+@Getter
 @Setter
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Advertisement {
 
@@ -37,9 +44,4 @@ public class Advertisement {
         this.user = user;
         this.location = location;
     }
-
-    public Advertisement() {
-    }
-
-
 }

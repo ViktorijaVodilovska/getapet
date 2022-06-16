@@ -1,47 +1,37 @@
 package com.group18.getapet.web.controller;
 
-import com.group18.getapet.model.Advertisement;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.group18.getapet.model.Pet;
 import com.group18.getapet.model.enumerations.PetGender;
 import com.group18.getapet.model.enumerations.PetSize;
 import com.group18.getapet.model.enumerations.PetType;
 import com.group18.getapet.model.exceptions.PetNotFoundException;
-import com.group18.getapet.service.AdvertisementService;
 import com.group18.getapet.service.PetService;
-import com.group18.getapet.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/pets")
 public class PetController {
+
     private final PetService petService;
-    private final UserService userService;
-    private final AdvertisementService adsService;
 
-    public PetController(PetService petService, UserService userService, AdvertisementService adsService) {
+    public PetController(PetService petService) {
         this.petService = petService;
-        this.userService = userService;
-        this.adsService = adsService;
-    }
-
-    @GetMapping
-    public String getAllPets(Model model) {
-        List<Pet> pets = this.petService.listAll();
-        List<Advertisement> ads = this.adsService.listAll();
-        model.addAttribute("pets", pets);
-        model.addAttribute("ads", ads);
-        return "products";
     }
 
     @GetMapping("/{id}")
     public String getPetById(@PathVariable Long id, Model model) {
         Pet pet = this.petService.findById(id).orElseThrow(() -> new PetNotFoundException(id));
         model.addAttribute("pet", pet);
-        return "single-product";
+        return "pet";
     }
 
     @GetMapping("/add")
@@ -58,8 +48,8 @@ public class PetController {
                          @RequestParam PetSize petSize,
                          @RequestParam PetGender petGender) {
 
-        Pet p = new Pet(name,petType, breed, age, image, petSize, petGender);
-        this.petService.save(p);
+        Pet pet = new Pet(name, petType, breed, age, image, petSize, petGender);
+        this.petService.save(pet);
         return "redirect:/ads/add";
     }
 
@@ -71,13 +61,11 @@ public class PetController {
                             @RequestParam Integer age,
                             @RequestParam String image,
                             @RequestParam PetSize petSize,
-                            @RequestParam PetGender petGender) { //za site polinja
+                            @RequestParam PetGender petGender) {
         if (this.petService.findById(id).isPresent()) {
-            Pet pet = this.petService.findById(id).orElseThrow(() -> new PetNotFoundException(id));
             this.petService.update(id, name, petType, breed, age, image, petSize, petGender);
-            return "redirect:/pets";
+            return "redirect:/pets/{id}";
         }
-
 
         return "redirect:/pets?error=Pet+Not+Found";
     }
