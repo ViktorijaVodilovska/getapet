@@ -59,6 +59,9 @@ public class UserProfileController {
             HttpServletRequest request
     ) {
         try {
+            if (name == "" || surname == "" | password == "") {
+                return "redirect:/profile";
+            }
             String username = request.getRemoteUser();
             User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
             this.userService.update(username, password, name, surname, user.getRole());
@@ -67,5 +70,4 @@ public class UserProfileController {
             return "redirect:/profile/edit?hasError=true&&error=" + ex.getMessage();
         }
     }
-
 }

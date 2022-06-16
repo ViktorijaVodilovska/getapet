@@ -16,7 +16,7 @@
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.css">
     <link rel="stylesheet" href="css/tooplate-main.css">
     <link rel="stylesheet" href="css/owl.css">
 <!--
@@ -61,6 +61,9 @@ https://www.tooplate.com/view/2114-pixie
             <li class="nav-item">
               <a class="nav-link" th:href="@{'/home/contact'}">Contact Us</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{'/profile'}">Profile</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -69,8 +72,8 @@ https://www.tooplate.com/view/2114-pixie
     <!-- Page Content -->
 
     <!-- Filters -->
-    
-      <div id="TypeFilter" style="flex-direction: row;margin-left: 200px;">
+
+    <div id="TypeFilter" style="margin-left: 200px;">
         <p style="font-size: x-large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Service:</p>
         <select style="  cursor: pointer;
         line-height: 1.1;
@@ -83,7 +86,8 @@ https://www.tooplate.com/view/2114-pixie
         </select>
       </div>
 
-      <div class="Row" style="flex-direction: row;display:inline-block;">
+
+      <div style="flex-direction: row;display:inline-block; margin-left: 800px">
         <div class="Column">
           <p style="font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Pet:  </p>
           <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
@@ -94,7 +98,7 @@ https://www.tooplate.com/view/2114-pixie
           </select>
           <p>&emsp; </p>
         </div>
-        
+
         <div class="Column">
           <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif"> Select age of Pet:  </p>
           <select style="cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
@@ -104,8 +108,8 @@ https://www.tooplate.com/view/2114-pixie
             <option value=".2Plus">2+</option>
           </select>
           <p>&emsp; </p>
-         </div>
-         
+        </div>
+
         <div class="Column">
           <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Gender: </p>
           <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
@@ -144,7 +148,7 @@ https://www.tooplate.com/view/2114-pixie
 
         <div class="row posts">
             <div id="1" class="item new col-md-4">
-              <a href="single-product.html">
+              <a th:href="@{'/ads/single-ad'}">
                 <div class="featured-item">
                   <img src="images/product-01.jpg" alt="">
                   <h4>Dog</h4>

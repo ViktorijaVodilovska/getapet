@@ -91,4 +91,9 @@ public class PetController {
 
         return "redirect:/pets?error=Pet+Not+Found";
     }
+
+    @GetMapping("/single-pet")
+    public String getSinglePet(){
+        return "pet";
+    }
 }
