@@ -1,0 +1,26 @@
+version: '3' #verzija na fajlot
+services: #services we are running
+  lab-wp: #name of our app service
+    image: 'lab-wp:latest' #the image we are creating/pulling
+    ports: #the port we are mapping it on
+      - "9090:9090"
+    build:
+      context: .
+      dockerfile: Dockerfile #the image will be created from commands listed in the Dockerfile
+    container_name: lab-wp #name of the container
+    depends_on: #what our service depends on
+      - pg_database
+    environment: #enviroment variables, declared in app.properties in the app itself
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Miha_107
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  pg_database: #name of our db service
+    image: 'postgres:13.1-alpine' #the version of the db image we are pulling since we are using it in the app
+    container_name: pg_database #name of the db container
+    ports: #the port we are mapping it on
+      - "5432:5432"
+    environment: #enviroment variables needed to access db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Miha_107
