@@ -44,14 +44,16 @@ public class AdvertisementController {
             Advertisement advertisement = this.advertisementService.findById(id)
                     .orElseThrow(() -> new AdvertisementNotFoundException(id));
             model.addAttribute("advertisement", advertisement);
-            return "single-product";
+            model.addAttribute("bodyContent","single-product");
+            return "master-template";
         }
         return "redirect:/ads?error=Advertisement+was+not+found";
     }
 
     @GetMapping("/single-ad")
-    public String getSinglePet(){
-        return "single-product";
+    public String getSinglePet(Model model){
+        model.addAttribute("bodyContent","single-product");
+        return "master-template";
     }
 
     @GetMapping("/filter")
@@ -65,7 +67,8 @@ public class AdvertisementController {
     public String addAdvertisement(Model model) {
         List<Pet> pets = this.petService.listAll();
         model.addAttribute("pets", pets);
-        return "addAdvertisement";
+        model.addAttribute("bodyContent","addAdvertisement");
+        return "master-template";
     }
 
     @PostMapping("/add")
@@ -88,7 +91,8 @@ public class AdvertisementController {
         if (this.advertisementService.findById(id) != null) {
             Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
             model.addAttribute("ad", ad);
-            return "addAdvertisement";
+            model.addAttribute("bodyContent","addAdvertisement");
+            return "master-template";
         }
         return "redirect:/ads";
     }

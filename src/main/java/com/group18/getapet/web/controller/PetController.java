@@ -34,19 +34,22 @@ public class PetController {
         List<Advertisement> ads = this.adsService.listAll();
         model.addAttribute("pets", pets);
         model.addAttribute("ads", ads);
-        return "products";
+        model.addAttribute("bodyContent", "products");
+        return "master-template";
     }
 
     @GetMapping("/{id}")
     public String getPetById(@PathVariable Long id, Model model) {
         Pet pet = this.petService.findById(id).orElseThrow(() -> new PetNotFoundException(id));
         model.addAttribute("pet", pet);
-        return "single-product";
+        model.addAttribute("bodyContent", "single-product");
+        return "master-template";
     }
 
     @GetMapping("/add")
-    public String addPet() {
-        return "addPet";
+    public String addPet(Model model) {
+        model.addAttribute("bodyContent", "addPet");
+        return "master-template";
     }
 
     @PostMapping("/add")
@@ -93,7 +96,8 @@ public class PetController {
     }
 
     @GetMapping("/single-pet")
-    public String getSinglePet(){
-        return "pet";
+    public String getSinglePet(Model model){
+        model.addAttribute("bodyContent", "pet");
+        return "master-template";
     }
 }
