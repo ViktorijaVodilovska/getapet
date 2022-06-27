@@ -26,49 +26,6 @@ https://www.tooplate.com/view/2114-pixie
   </head>
 
   <body>
-    
-    <!-- Pre Header -->
-    <div id="pre-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <span>Website for Pet Adoption and Care</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-      <div class="container">
-        <a class="navbar-brand" href="#"><img src="images/logo.png" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{'/home'}">Home</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" th:href="@{'/pets'}">Pet Ads
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{'/home/about'}">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{'/home/contact'}">Contact Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{'/profile'}">Profile</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
     <!-- Page Content -->
 
     <!-- Filters -->
@@ -101,13 +58,8 @@ https://www.tooplate.com/view/2114-pixie
 
         <div class="Column">
           <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif"> Select age of Pet:  </p>
-          <select style="cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-            <option value="">–Select Age</option>
-            <option value=".-Min1">-1</option>
-            <option value=".1-2">1-2</option>
-            <option value=".2Plus">2+</option>
-          </select>
-          <p>&emsp; </p>
+          <input type="number" size="18" style="width: 150px; margin-bottom: -20px; padding-bottom: -10px">
+          <p style="height: 21px">&emsp; </p>
         </div>
 
         <div class="Column">
@@ -116,6 +68,27 @@ https://www.tooplate.com/view/2114-pixie
             <option value="">–Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
+          </select>
+          <p>&emsp; </p>
+        </div>
+        <div class="Column">
+          <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Size: </p>
+          <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
+            <option value="">–Select size</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+          </select>
+          <p>&emsp; </p>
+        </div>
+        <div class="Column">
+          <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Colour: </p>
+          <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
+            <option value="">–Select colour</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Brown">Brown</option>
+            <option value="Blond">Blond</option>
           </select>
           <p>&emsp; </p>
         </div>
@@ -255,52 +228,6 @@ https://www.tooplate.com/view/2114-pixie
       </div>
     </div>
     <!-- Featred Page Ends Here -->
-
-
-   
-
-    
-    <!-- Footer Starts Here -->
-    <div class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="logo">
-              <img src="images/-logo.png" alt="">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="footer-menu">
-              <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Help</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">How It Works ?</a></li>
-                <li><a href="#">Contact Us</a></li>
-              </ul>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    <!-- Footer Ends Here -->
-
-
-    <!-- Sub Footer Starts Here -->
-    <div class="sub-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="copyright-text">
-              <p>Copyright &copy; 2022 Finki</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Sub Footer Ends Here -->
-
 
     <!-- Bootstrap core JavaScript -->
     <script src="jquery/jquery.min.js"></script>

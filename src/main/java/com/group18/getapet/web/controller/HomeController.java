@@ -36,16 +36,19 @@ public class HomeController {
             ads = this.adsservice.listAllByAdType(type);
         }
         model.addAttribute("ads", ads);
-        return "index";
+        model.addAttribute("bodyContent","index");
+        return "master-template";
     }
 
     @GetMapping("/about")
-    public String about() {
-        return "about";
+    public String about(Model model) {
+        model.addAttribute("bodyContent","about");
+        return "master-template";
     }
 
     @GetMapping("/contact")
-    public String contact() {
-        return "contact";
+    public String contact(Model model) {
+        model.addAttribute("bodyContent","contact");
+        return "master-template";
     }
 }

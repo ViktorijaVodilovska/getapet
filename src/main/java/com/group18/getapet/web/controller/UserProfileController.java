@@ -39,7 +39,8 @@ public class UserProfileController {
         List<Advertisement> ads = advertisementService.listAllByUser(user);
         model.addAttribute("user", user);
         model.addAttribute("userAds", ads);
-        return "user";
+        model.addAttribute("bodyContent", "user");
+        return "master-template";
     }
 
     @GetMapping("/edit")
