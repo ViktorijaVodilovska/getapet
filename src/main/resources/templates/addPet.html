@@ -9,7 +9,7 @@
   <meta name="author" content="">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
-  <title>Get A Pet</title>
+  <title>Get A Pet - Add New Pet</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,6 +28,9 @@
 <body>
 
 <div class="container" style="position: relative; top: 50px">
+  <div>
+    <a th:href="@{'/ads/add'}">Skip adding pet</a>
+  </div>
   <div class="row">
     <div class="col-sm-6">
       <form th:method="POST" th:action="@{'/pets/add'}">

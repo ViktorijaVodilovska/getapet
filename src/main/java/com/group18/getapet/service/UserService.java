@@ -12,7 +12,7 @@ public interface UserService {
     Optional<User> findByUsername(String username);
     void deleteByUsername(String username);
     User save(User user);
-    User create(String username, String password,String name, String surname, UserRole role);
-    User update(String username, String password,String name, String surname, UserRole role);
+    User create(String username, String password,String name, String surname, String number, UserRole role);
+    User update(String username, String password,String name, String surname, String number, UserRole role);
 
 }

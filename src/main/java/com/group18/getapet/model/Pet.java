@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,6 +38,9 @@ public class Pet {
     private PetGender petGender;
 
     private String image;
+
+    @OneToMany (mappedBy = "pet")
+    private List<Advertisement> ads;
 
     public Pet(PetType petType, String breed, Integer age, String image, PetSize petSize, PetGender petGender) {
         this.petType = petType;
