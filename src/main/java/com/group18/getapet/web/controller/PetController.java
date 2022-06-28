@@ -28,15 +28,6 @@ public class PetController {
         this.adsService = adsService;
     }
 
-    @GetMapping
-    public String getAllPets(Model model) {
-        List<Pet> pets = this.petService.listAll();
-        List<Advertisement> ads = this.adsService.listAll();
-        model.addAttribute("pets", pets);
-        model.addAttribute("ads", ads);
-        model.addAttribute("bodyContent", "products");
-        return "master-template";
-    }
 
     @GetMapping("/{id}")
     public String getPetById(@PathVariable Long id, Model model) {

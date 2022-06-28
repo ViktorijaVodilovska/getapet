@@ -43,11 +43,6 @@ public class AdvertisementController {
             @RequestParam(required = false) Integer petAge,
             Model model) {
         List<Advertisement> advertisementList;
-//        if(adType==null){
-//            advertisementList = this.advertisementService.listAll();
-//        }else{
-//            advertisementList = this.advertisementService.listAllByAdType(adType);
-//        }
         if(adType==null && petType == null && petGender == null && petSize == null && petAge==null){
             advertisementList = this.advertisementService.listAll();
         }else{
@@ -64,21 +59,23 @@ public class AdvertisementController {
         model.addAttribute("petGenders", petGenders);
         List<PetSize> petSizes = List.of(PetSize.values());
         model.addAttribute("petSizes", petSizes);
-        return "products.html";
+        model.addAttribute("bodyContent","ads");
+        return "master-template";
     }
-
     @GetMapping("/{id}")
     public String getAdvertisementById(@PathVariable Long id, Model model) {
-        model.addAttribute("adTypes", AdType.values());
         if (this.advertisementService.findById(id).isPresent()) {
             Advertisement advertisement = this.advertisementService.findById(id)
                     .orElseThrow(() -> new AdvertisementNotFoundException(id));
-            model.addAttribute("advertisement", advertisement);
-            model.addAttribute("bodyContent","single-product");
+            model.addAttribute("ad", advertisement);
+            model.addAttribute("pet", advertisement.getPet());
+            model.addAttribute("user", advertisement.getUser());
+            model.addAttribute("bodyContent","ad-page");
             return "master-template";
         }
         return "redirect:/ads?error=Advertisement+was+not+found";
     }
+
 
     @GetMapping("/filter")
     public String getAdvertisementsByFilter(@RequestParam AdType adType, Model model) {

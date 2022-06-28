@@ -33,6 +33,7 @@ public class UserProfileController {
     public String getProfilePage(Model model, HttpServletRequest request) {
         String username = request.getRemoteUser();
 
+
         User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         List<Advertisement> ads = advertisementService.listAllByUser(user);
         model.addAttribute("user", user);

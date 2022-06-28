@@ -1,37 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
-
-    <title>Get A Pet - Products</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" type="text/css" href="css/fontawesome.css">
-    <link rel="stylesheet" href="css/tooplate-main.css">
-    <link rel="stylesheet" href="css/owl.css">
-<!--
-Tooplate 2114 Pixie
-https://www.tooplate.com/view/2114-pixie
--->
-  </head>
-
   <body>
     <!-- Page Content -->
 
     <!-- Filters -->
     <form th:method="GET" th:action="@{'/ads'}">
-    <div id="TypeFilter" style="margin-left: 200px;">
-        <p style="font-size: x-large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Service:</p>
+    <div id="TypeFilter" style="margin-left: 300px;">
+        <p style="font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Service:</p>
        <!--<form>-->
          <!--<select id="adType" name="adType" onchange="this.form.submit()" style="  cursor: pointer;-->
          <select id="adType" name="adType" style="  cursor: pointer;
@@ -45,7 +20,7 @@ https://www.tooplate.com/view/2114-pixie
 
       </div>
 
-
+      </br>
       <div style="flex-direction: row;display:inline-block; margin-left: 800px">
         <div class="Column">
           <p style="font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Pet:  </p>
@@ -103,12 +78,12 @@ https://www.tooplate.com/view/2114-pixie
               <h1>Featured Items</h1>
             </div>
           </div>
-          <div class="col-md-8 col-sm-12">
+         <!-- <div class="col-md-8 col-sm-12">
             <div id="filters" class="button-group">
               <button class="btn btn-primary" data-filter="*">All Ads</button>
               <button class="btn btn-primary" data-filter=".new">Newest</button>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -118,7 +93,7 @@ https://www.tooplate.com/view/2114-pixie
         <div class="row posts">
 
           <div class="item new col-md-4" th:each="ad : ${advertisementList}">
-            <a th:href="@{'/ads/single-ad'}">
+            <a th:href="@{'/ads/{id}' (id=${ad.getId()})}">
               <div class="featured-item">
                 <img th:src="${ad.pet.image}" alt="">
                 <h4 th:text="${ad.title}"></h4>
