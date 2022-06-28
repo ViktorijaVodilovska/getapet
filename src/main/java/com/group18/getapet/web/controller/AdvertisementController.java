@@ -4,7 +4,7 @@ package com.group18.getapet.web.controller;
 import com.group18.getapet.model.Advertisement;
 import com.group18.getapet.model.Pet;
 import com.group18.getapet.model.User;
-import com.group18.getapet.model.enumerations.AdType;
+import com.group18.getapet.model.enumerations.*;
 import com.group18.getapet.model.exceptions.AdvertisementNotFoundException;
 import com.group18.getapet.model.exceptions.PetNotFoundException;
 import com.group18.getapet.model.exceptions.UserNotFoundException;
@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,21 +26,50 @@ public class AdvertisementController {
     private final UserService userService;
     private final PetService petService;
 
-    public AdvertisementController(AdvertisementService advertisementService, UserService userService, PetService petService) {
+    public AdvertisementController(AdvertisementService advertisementService,
+                                   UserService userService,
+                                   PetService petService) {
         this.advertisementService = advertisementService;
         this.userService = userService;
         this.petService = petService;
     }
-/*
+
     @GetMapping
-    public String getAllAdvertisements(Model model) {
-        List<Advertisement> advertisementList = this.advertisementService.listAll();
+    public String getAllAdvertisements(
+            @RequestParam(required = false) AdType adType,
+            @RequestParam(required = false) PetType petType,
+            @RequestParam(required = false) PetGender petGender,
+            @RequestParam(required = false) PetSize petSize,
+            @RequestParam(required = false) Integer petAge,
+            Model model) {
+        List<Advertisement> advertisementList;
+//        if(adType==null){
+//            advertisementList = this.advertisementService.listAll();
+//        }else{
+//            advertisementList = this.advertisementService.listAllByAdType(adType);
+//        }
+        if(adType==null && petType == null && petGender == null && petSize == null && petAge==null){
+            advertisementList = this.advertisementService.listAll();
+        }else{
+            advertisementList = this.advertisementService.filterAds(adType,petType,petGender,petSize,petAge);
+        }
         model.addAttribute("advertisementList", advertisementList);
-        return "";
-    }*/
+        List<AdType> types = List.of(AdType.values());
+        model.addAttribute("adTypes", types);
+        List<PetType> petTypes = List.of(PetType.values());
+        model.addAttribute("petTypes", petTypes);
+        List<PetColor> petColors = List.of(PetColor.values());
+        model.addAttribute("petColors", petColors);
+        List<PetGender> petGenders = List.of(PetGender.values());
+        model.addAttribute("petGenders", petGenders);
+        List<PetSize> petSizes = List.of(PetSize.values());
+        model.addAttribute("petSizes", petSizes);
+        return "products.html";
+    }
 
     @GetMapping("/{id}")
     public String getAdvertisementById(@PathVariable Long id, Model model) {
+        model.addAttribute("adTypes", AdType.values());
         if (this.advertisementService.findById(id).isPresent()) {
             Advertisement advertisement = this.advertisementService.findById(id)
                     .orElseThrow(() -> new AdvertisementNotFoundException(id));
@@ -60,7 +90,9 @@ public class AdvertisementController {
     public String getAdvertisementsByFilter(@RequestParam AdType adType, Model model) {
         List<Advertisement> advertisementList = this.advertisementService.listAllByAdType(adType);
         model.addAttribute("advertisementList", advertisementList);
-        return "";
+        model.addAttribute("adTypes", AdType.values());
+
+        return "products.html";
     }
 
     @GetMapping("/add")
@@ -68,6 +100,8 @@ public class AdvertisementController {
         List<Pet> pets = this.petService.listAll();
         model.addAttribute("pets", pets);
         model.addAttribute("bodyContent","addAdvertisement");
+        model.addAttribute("adTypes", AdType.values());
+
         return "master-template";
     }
 
@@ -78,7 +112,7 @@ public class AdvertisementController {
                                    @RequestParam AdType adType,
                                    @RequestParam Long pet,
                                    @RequestParam String location) { //za site polinja
-        String username = request.getRemoteUser();
+        String username  = request.getRemoteUser();
         User user1 = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Pet p = this.petService.findById(pet).orElseThrow(() -> new PetNotFoundException(pet));
         this.advertisementService.create(title, description, adType, p, user1, location);

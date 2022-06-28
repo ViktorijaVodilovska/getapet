@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
   <head>
 
@@ -29,71 +29,70 @@ https://www.tooplate.com/view/2114-pixie
     <!-- Page Content -->
 
     <!-- Filters -->
-
+    <form th:method="GET" th:action="@{'/ads'}">
     <div id="TypeFilter" style="margin-left: 200px;">
         <p style="font-size: x-large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Service:</p>
-        <select style="  cursor: pointer;
+       <!--<form>-->
+         <!--<select id="adType" name="adType" onchange="this.form.submit()" style="  cursor: pointer;-->
+         <select id="adType" name="adType" style="  cursor: pointer;
         line-height: 1.1;
         background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-          <option value="">-Type of Service</option>
-          <option value=".Adoption">Adoption</option>
-          <option value=".Sitting">Sitting</option>
-          <option value=".Buying">Buying</option>
-          <option value=".Walking">Walking</option>
-        </select>
+           <option value="">–Select ad type</option>
+           <option th:each="adType: ${adTypes}" th:value="${adType}" th:text="${adType}"></option>
+         </select>
+         <!--<button id="adType" type="submit">Filter</button>-->
+       <!--</form>-->
+
       </div>
 
 
       <div style="flex-direction: row;display:inline-block; margin-left: 800px">
+
         <div class="Column">
           <p style="font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Pet:  </p>
-          <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-            <option value="">–Select Type</option>
-            <option value=".Dog">Dog</option>
-            <option value=".Cat">Cat</option>
-            <option value=".Other">Other</option>
+          <!--<form>-->
+          <select  id="petType" name="petType" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
+            <option value="">–Select pet type</option>
+            <option th:each="petType: ${petTypes}" th:value="${petType}" th:text="${petType}"></option>
           </select>
+            <!--<button id="petType" type="submit">Filter</button>-->
+          <!--</form>-->
           <p>&emsp; </p>
         </div>
 
         <div class="Column">
           <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif"> Select age of Pet:  </p>
-          <input type="number" size="18" style="width: 150px; margin-bottom: -20px; padding-bottom: -10px">
+          <input id="petAge" type="number" name="petAge" size="18" style="width: 150px; margin-bottom: -20px; padding-bottom: -10px">
           <p style="height: 21px">&emsp; </p>
         </div>
 
         <div class="Column">
           <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Gender: </p>
-          <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-            <option value="">–Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+          <select  id="petGender" name="petGender" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
+            <option value="">–Select gender</option>
+            <option th:each="petGender: ${petGenders}" th:value="${petGender}" th:text="${petGender}"></option>
           </select>
           <p>&emsp; </p>
         </div>
         <div class="Column">
           <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Size: </p>
-          <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
+          <select  id="petSize" name="petSize" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
             <option value="">–Select size</option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
+            <option th:each="petSize: ${petSizes}" th:value="${petSize}" th:text="${petSize}"></option>
           </select>
           <p>&emsp; </p>
         </div>
-        <div class="Column">
+        <!--<div class="Column">
           <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Colour: </p>
-          <select style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
+          <select  id="petColor" name="petColor" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
             <option value="">–Select colour</option>
-            <option value="Black">Black</option>
-            <option value="White">White</option>
-            <option value="Brown">Brown</option>
-            <option value="Blond">Blond</option>
+            <option th:each="petColor: ${petColors}" th:value="${petColor}" th:text="${petColor}"></option>
           </select>
           <p>&emsp; </p>
-        </div>
+        </div>-->
       </div>
-      
+      <button type="submit">Filter</button>
+    </form>
 
     <!-- Filters -->
 
@@ -120,96 +119,18 @@ https://www.tooplate.com/view/2114-pixie
     <div class="featured container no-gutter">
 
         <div class="row posts">
-            <div id="1" class="item new col-md-4">
-              <a th:href="@{'/ads/single-ad'}">
-                <div class="featured-item">
-                  <img src="images/product-01.jpg" alt="">
-                  <h4>Dog</h4>
-                  <h6>User 1</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="2" class="item high col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-02.jpg" alt="">
-                  <h4>Cat</h4>
-                  <h6>User 2</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="3" class="item low col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-03.jpeg" alt="">
-                  <h4>Squirrel</h4>
-                  <h6>User 3</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="4" class="item low col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-04.jpg" alt="">
-                  <h4>Parrot</h4>
-                  <h6>User 4</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="5" class="item new high col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-05.jpg" alt="">
-                  <h4>Dog</h4>
-                  <h6>User 5</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="6" class="item new col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-06.jpg" alt="">
-                  <h4>Cat</h4>
-                  <h6>User 6</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="7" class="item new high col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-03.jpeg" alt="">
-                  <h4>Squirrel</h4>
-                  <h6>User 3</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="8" class="item low new col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-02.jpg" alt="">
-                  <h4>Cat</h4>
-                  <h6>User 2</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
-            <div id="9" class="item new col-md-4">
-              <a href="single-product.html">
-                <div class="featured-item">
-                  <img src="images/product-01.jpg" alt="">
-                  <h4>Dog</h4>
-                  <h6>User 1</h6>
-                  <h7>Skopje</h7>
-                </div>
-              </a>
-            </div>
+
+          <div class="item new col-md-4" th:each="ad : ${advertisementList}">
+            <a th:href="@{'/ads/single-ad'}">
+              <div class="featured-item">
+                <img th:src="${ad.pet.image}" alt="">
+                <h4 th:text="${ad.title}"></h4>
+                <h6 th:text="${ad.user.username}"></h6>
+                <h7 th:text="${ad.location}"></h7>
+              </div>
+            </a>
+          </div>
+
         </div>
     </div>
 
