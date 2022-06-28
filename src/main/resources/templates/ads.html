@@ -47,7 +47,6 @@ https://www.tooplate.com/view/2114-pixie
 
 
       <div style="flex-direction: row;display:inline-block; margin-left: 800px">
-
         <div class="Column">
           <p style="font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Pet:  </p>
           <!--<form>-->
@@ -55,8 +54,6 @@ https://www.tooplate.com/view/2114-pixie
             <option value="">–Select pet type</option>
             <option th:each="petType: ${petTypes}" th:value="${petType}" th:text="${petType}"></option>
           </select>
-            <!--<button id="petType" type="submit">Filter</button>-->
-          <!--</form>-->
           <p>&emsp; </p>
         </div>
 

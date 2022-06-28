@@ -52,21 +52,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(String username, String password, String name, String surname, UserRole role) {
+    public User create(String username, String password, String name, String surname, String number, UserRole role) {
         if (this.userRepository.findByUsername(username).isPresent()) {
             throw new UserAlreadyExistsException();
         } else {
-            User user = new User(username, password, name, surname, role);
+            User user = new User(username, password, name, surname, number, role);
             return this.userRepository.save(user);
         }
     }
 
     @Override
-    public User update(String username, String password, String name, String surname, UserRole role) {
+    public User update(String username, String password, String name, String surname, String number, UserRole role) {
         User user = this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         user.setPassword(password);
         user.setName(name);
         user.setSurname(surname);
+        user.setPhoneNumber(number);
         user.setRole(role);
         return this.userRepository.save(user);
     }

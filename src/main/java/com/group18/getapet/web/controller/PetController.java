@@ -42,7 +42,8 @@ public class PetController {
     public String getPetById(@PathVariable Long id, Model model) {
         Pet pet = this.petService.findById(id).orElseThrow(() -> new PetNotFoundException(id));
         model.addAttribute("pet", pet);
-        model.addAttribute("bodyContent", "single-product");
+        model.addAttribute("ads", pet.getAds());
+        model.addAttribute("bodyContent", "pet-page");
         return "master-template";
     }
 
@@ -66,7 +67,7 @@ public class PetController {
         return "redirect:/ads/add";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/{id}/update")
     public String updatePet(@PathVariable Long id,
                             @RequestParam(required = false) String name,
                             @RequestParam PetType petType,
@@ -74,7 +75,7 @@ public class PetController {
                             @RequestParam Integer age,
                             @RequestParam String image,
                             @RequestParam PetSize petSize,
-                            @RequestParam PetGender petGender) { //za site polinja
+                            @RequestParam PetGender petGender) {
         if (this.petService.findById(id).isPresent()) {
             Pet pet = this.petService.findById(id).orElseThrow(() -> new PetNotFoundException(id));
             this.petService.update(id, name, petType, breed, age, image, petSize, petGender);
@@ -85,7 +86,7 @@ public class PetController {
         return "redirect:/pets?error=Pet+Not+Found";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}/delete")
     public String deletePet(@PathVariable Long id) {
         if (this.petService.findById(id).isPresent()) {
             this.petService.deleteById(id);
@@ -93,11 +94,5 @@ public class PetController {
         }
 
         return "redirect:/pets?error=Pet+Not+Found";
-    }
-
-    @GetMapping("/single-pet")
-    public String getSinglePet(Model model){
-        model.addAttribute("bodyContent", "pet");
-        return "master-template";
     }
 }

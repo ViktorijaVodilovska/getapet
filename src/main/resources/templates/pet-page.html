@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--<head>-->
+
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">-->
+
+<!--    <title>Get A Pet - Pet Details Page</title>-->
+
+<!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
+<!--    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+
+
+<!--    &lt;!&ndash; Additional CSS Files &ndash;&gt;-->
+
+<!--    <link rel="stylesheet" href="/css/tooplate-main.css">-->
+<!--    <link rel="stylesheet" href="/css/owl.css">-->
+<!--    <link rel="stylesheet" href="/css/fontawesome.css">-->
+<!--    <link rel="stylesheet" href="/css/flex-slider.css">-->
+<!--    &lt;!&ndash;-->
+<!--    Tooplate 2114 Pixie-->
+<!--    https://www.tooplate.com/view/2114-pixie-->
+<!--    &ndash;&gt;-->
+<!--</head>-->
+
+<body>
+
+<!-- Page Content -->
+<!-- Single Starts Here -->
+<div class="single-product">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <div class="line-dec"></div>
+                    <h2 id="petType" th:text="${pet.getPetType()}"></h2>
+                    <h1 id="petName" th:text="${pet.getName()}"></h1>
+                </div>
+            </div>
+            <div>
+                <img th:src="${pet.getImage}">
+            </div>
+            <div class="col-md-6">
+                <div class="right-content">
+                    <div>
+                        <span style="color: black;font-size: large;">Breed: </span> <span id="petBreed" style="color: black;font-size: large;" th:text="${pet.getBreed()}"> </span>
+                    </div>
+                    <div>
+                        <span style="color: black;font-size: large;">Gender: </span> <span id="petGender" style="color: black;font-size: large;" th:text="${pet.getPetGender()}"></span>
+                    </div>
+                    <div>
+                        <span style="color: black;font-size: large;">Age: </span> <span style="color: black;font-size: large;" th:text="${pet.getAge()}"></span>
+                    </div>
+                    <div>
+                        <span style="color: black;font-size: large;">Size: </span> <span style="color: black;font-size: large;" th:text="${pet.getPetSize()}"></span>
+                    </div>
+                    <div th:if="${ads.size() > 0}">
+                        <span style="color: black;font-size: large;">Advertisements: </span>
+                        <ol th:each="ad : ${ads}">
+                            <a th:href="@{'/ads/{id}' (id=${ad.getId()})}"><li th:text="${ad.getTitle()}"></li></a>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Single Page Ends Here -->
+
+    <!-- Similar Starts Here -->
+    <div class="items">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <div class="line-dec"></div>
+                        <h1>You May Also Like</h1>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="owl-carousel owl-theme">
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-01.jpg" alt="Item 1">
+                                <h4>Hedgehog</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-02.jpg" alt="Item 2">
+                                <h4>Dog</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-03.jpg" alt="Item 3">
+                                <h4>Rabbit</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-04.jpg" alt="Item 4">
+                                <h4>Cat</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-05.jpg" alt="Item 5">
+                                <h4>Catt</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-06.jpg" alt="Item 6">
+                                <h4>Dog</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-04.jpg" alt="Item 7">
+                                <h4>Cat</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-05.jpg" alt="Item 8">
+                                <h4>Cat</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                        <a href="ad-page.html">
+                            <div class="featured-item">
+                                <img src="/images/item-06.jpg" alt="Item 9">
+                                <h4>Dog</h4>
+                                <h6>Skopje</h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Similar Ends Here -->
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Additional Scripts -->
+    <script src="js/custom.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/isotope.js"></script>
+    <script src="js/flex-slider.js"></script>
+
+
+    <script language="text/Javascript">
+        cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+        function clearField(t) {                   //declaring the array outside of the
+            if (!cleared[t.id]) {                      // function makes it static and global
+                cleared[t.id] = 1;  // you could use true and false, but that's more typing
+                t.value = '';         // with more chance of typos
+                t.style.color = '#fff';
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
