@@ -30,37 +30,34 @@ public class AdvertisementController {
         this.userService = userService;
         this.petService = petService;
     }
-/*
+
     @GetMapping
     public String getAllAdvertisements(Model model) {
         List<Advertisement> advertisementList = this.advertisementService.listAll();
         model.addAttribute("advertisementList", advertisementList);
-        return "";
-    }*/
+        model.addAttribute("bodyContent", "ads");
+        return "master-template";
+    }
 
     @GetMapping("/{id}")
     public String getAdvertisementById(@PathVariable Long id, Model model) {
         if (this.advertisementService.findById(id).isPresent()) {
             Advertisement advertisement = this.advertisementService.findById(id)
                     .orElseThrow(() -> new AdvertisementNotFoundException(id));
-            model.addAttribute("advertisement", advertisement);
-            model.addAttribute("bodyContent","single-product");
+            model.addAttribute("ad", advertisement);
+            model.addAttribute("pet", advertisement.getPet());
+            model.addAttribute("user", advertisement.getUser());
+            model.addAttribute("bodyContent","ad-page");
             return "master-template";
         }
         return "redirect:/ads?error=Advertisement+was+not+found";
-    }
-
-    @GetMapping("/single-ad")
-    public String getSinglePet(Model model){
-        model.addAttribute("bodyContent","single-product");
-        return "master-template";
     }
 
     @GetMapping("/filter")
     public String getAdvertisementsByFilter(@RequestParam AdType adType, Model model) {
         List<Advertisement> advertisementList = this.advertisementService.listAllByAdType(adType);
         model.addAttribute("advertisementList", advertisementList);
-        return "";
+        return "ads";
     }
 
     @GetMapping("/add")
@@ -77,7 +74,7 @@ public class AdvertisementController {
                                    @RequestParam String description,
                                    @RequestParam AdType adType,
                                    @RequestParam Long pet,
-                                   @RequestParam String location) { //za site polinja
+                                   @RequestParam String location) {
         String username = request.getRemoteUser();
         User user1 = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Pet p = this.petService.findById(pet).orElseThrow(() -> new PetNotFoundException(pet));
@@ -86,8 +83,8 @@ public class AdvertisementController {
         return "redirect:/ads";
     }
 
-    @GetMapping("/update/{id}")
-    public String updatePet(@PathVariable Long id, Model model) { //za site polinja
+    @GetMapping("/{id}/update")
+    public String updatePet(@PathVariable Long id, Model model) {
         if (this.advertisementService.findById(id) != null) {
             Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
             model.addAttribute("ad", ad);

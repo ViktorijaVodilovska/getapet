@@ -38,17 +38,20 @@ public class User implements UserDetails {
 
     private String surname;
 
+    private String phoneNumber;
+
     @OneToMany(mappedBy = "user")
     private List<Advertisement> ads;
 
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
-    public User(String username, String password, String name, String surname, UserRole role) {
+    public User(String username, String password, String name, String surname, String phoneNumber, UserRole role) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.phoneNumber = phoneNumber;
         this.role = role;
     }
 

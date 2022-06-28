@@ -13,10 +13,7 @@ import com.group18.getapet.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,6 +40,16 @@ public class UserProfileController {
         return "master-template";
     }
 
+//    @GetMapping("/{username}")
+//    public String getProfilePageByUsername(@PathVariable String username, Model model, HttpServletRequest request) {
+//        User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+//        List<Advertisement> ads = advertisementService.listAllByUser(user);
+//        model.addAttribute("user", user);
+//        model.addAttribute("userAds", ads);
+//        model.addAttribute("bodyContent", "user");
+//        return "master-template";
+//    }
+
     @GetMapping("/edit")
     public String editProfile(Model model, HttpServletRequest request) {
         String username = request.getRemoteUser();
@@ -57,15 +64,16 @@ public class UserProfileController {
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String password,
+            @RequestParam String number,
             HttpServletRequest request
     ) {
         try {
-            if (name == "" || surname == "" | password == "") {
+            if (name.equals("") || surname.equals("") || password.equals("")) {
                 return "redirect:/profile";
             }
             String username = request.getRemoteUser();
             User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-            this.userService.update(username, password, name, surname, user.getRole());
+            this.userService.update(username, password, name, surname, number, user.getRole());
             return "redirect:/profile";
         } catch (UsernameAlreadyExistsException | InvalidArgumentsException | PasswordsDoNotMatchException ex) {
             return "redirect:/profile/edit?hasError=true&&error=" + ex.getMessage();
