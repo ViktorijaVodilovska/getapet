@@ -31,7 +31,9 @@ public class UserProfileController {
 
     @GetMapping
     public String getProfilePage(Model model, HttpServletRequest request) {
-        String username=request.getRemoteUser();
+        String username = request.getRemoteUser();
+
+
         User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         List<Advertisement> ads = advertisementService.listAllByUser(user);
         model.addAttribute("user", user);
@@ -53,6 +55,7 @@ public class UserProfileController {
     @GetMapping("/edit")
     public String editProfile(Model model, HttpServletRequest request) {
         String username = request.getRemoteUser();
+
         User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         model.addAttribute("user", user);
 
@@ -72,6 +75,7 @@ public class UserProfileController {
                 return "redirect:/profile";
             }
             String username = request.getRemoteUser();
+
             User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
             this.userService.update(username, password, name, surname, number, user.getRole());
             return "redirect:/profile";

@@ -28,6 +28,7 @@ public class PetController {
         this.adsService = adsService;
     }
 
+
     @GetMapping("/{id}")
     public String getPetById(@PathVariable Long id, Model model) {
         Pet pet = this.petService.findById(id).orElseThrow(() -> new PetNotFoundException(id));

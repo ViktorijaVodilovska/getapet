@@ -60,4 +60,5 @@ public class PetServiceImpl implements PetService {
         pet.setImage(image);
         return this.petRepository.save(pet);
     }
+
 }

@@ -3,6 +3,8 @@ package com.group18.getapet.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.group18.getapet.model.enumerations.PetGender;
+import com.group18.getapet.model.enumerations.PetType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

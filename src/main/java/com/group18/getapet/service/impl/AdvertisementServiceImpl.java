@@ -2,7 +2,12 @@ package com.group18.getapet.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.group18.getapet.model.enumerations.PetGender;
+import com.group18.getapet.model.enumerations.PetSize;
+import com.group18.getapet.model.enumerations.PetType;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.group18.getapet.model.Advertisement;
@@ -15,7 +20,6 @@ import com.group18.getapet.repository.PetRepository;
 import com.group18.getapet.repository.UserRepository;
 import com.group18.getapet.service.AdvertisementService;
 
-
 @Service
 public class AdvertisementServiceImpl implements AdvertisementService {
 
@@ -23,7 +27,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     private final UserRepository userRepository;
 
     public AdvertisementServiceImpl(UserRepository userRepository,
-                                    PetRepository petRepository,
                                     AdvertisementRepository advertisementRepository) {
         this.advertisementRepository = advertisementRepository;
         this.userRepository = userRepository;
@@ -79,18 +82,43 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return this.advertisementRepository.save(advertisement);
     }
 
-    @Override
-    public List<Advertisement> listAllByAdType(AdType adType) {
-        if (adType != null) {
-            return this.advertisementRepository.findAllByAdType(adType);
-        } else {
-            throw new AdTypeNotFound();
-        }
-    }
 
     @Override
     public List<Advertisement> listAllByUser(User user) {
         return this.advertisementRepository.findAllByUser(user);
     }
 
+
+    @Override
+    public List<Advertisement> filterAds(AdType adType, PetType petType, PetGender petGender, PetSize petSize, Integer petAge) {
+        List<Advertisement> ads = this.advertisementRepository.findAll();
+        if(adType != null){
+            ads = this.advertisementRepository.findAllByAdType(adType);
+        }
+        if(petType != null){
+            ads = ads.stream().filter(advertisement -> advertisement.getPet().getPetType().equals(petType)).collect(Collectors.toList());
+        }
+        if(petGender != null){
+            ads = ads.stream().filter(advertisement -> advertisement.getPet().getPetGender().equals(petGender)).collect(Collectors.toList());
+        }
+        if(petSize != null){
+            ads = ads.stream().filter(advertisement -> advertisement.getPet().getPetSize().equals(petSize)).collect(Collectors.toList());
+        }
+        if(petAge != null){
+            ads = ads.stream().filter(advertisement -> advertisement.getPet().getAge().equals(petAge)).collect(Collectors.toList());
+        }
+        return ads;
+    }
+
+
+    @Override
+    public List<Advertisement> listAllByAdType(AdType adType) {
+        if(adType != null){
+            return this.advertisementRepository.findAllByAdType(adType);
+        }
+        else{
+            return this.advertisementRepository.findAll();
+        }
+
+    }
 }
