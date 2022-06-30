@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <!--  <head>-->
 
@@ -64,67 +64,11 @@
           </div>
           <div class="col-md-12">
             <div class="owl-carousel owl-theme">
-              <a href="ad-page.html">
+              <a th:each="ad:${adsForAdoption}" th:href="@{'/ads/{id}' (id=${ad.getId()})}">
                 <div class="featured-item">
-                  <img src="images/item-01.jpg" alt="Item 1">
-                  <h4>Hedgehog Carl</h4>
-                  <h6>User 1</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-02.jpg" alt="Item 2">
-                  <h4>Dog Karl</h4>
-                  <h6>User 2</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-03.jpg" alt="Item 3">
-                  <h4>Rabbit Lucky</h4>
-                  <h6>User 3</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-04.jpg" alt="Item 4">
-                  <h4>Cat Luna</h4>
-                  <h6>User 4</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-05.jpg" alt="Item 5">
-                  <h4>Cat Bella</h4>
-                  <h6>User 5</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-06.jpg" alt="Item 6">
-                  <h4>Dog Rex</h4>
-                  <h6>User 6</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-04.jpg" alt="Item 7">
-                  <h4>Cat Luna</h4>
-                  <h6>User 4</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-05.jpg" alt="Item 8">
-                  <h4>Cat Bella</h4>
-                  <h6>User 5</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-06.jpg" alt="Item 9">
-                  <h4>Dog Rex</h4>
-                  <h6>User 6</h6>
+                  <img th:src="${ad.pet.image}" alt="Item 1">
+                  <h4 th:text="${ad.pet.name}">Hedgehog Carl</h4>
+                  <h6 th:text="${ad.user.username}">User 1</h6>
                 </div>
               </a>
             </div>
@@ -147,67 +91,11 @@
           </div>
           <div class="col-md-12">
             <div class="owl-carousel owl-theme">
-              <a href="ad-page.html">
+              <a th:each="ad:${adsForSale}" th:href="@{'/ads/{id}' (id=${ad.getId()})}">
                 <div class="featured-item">
-                  <img src="images/item-01.jpg" alt="Item 1">
-                  <h4>Hedgehog Carl</h4>
-                  <h6>User 1</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-02.jpg" alt="Item 2">
-                  <h4>Dog Karl</h4>
-                  <h6>User 2</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-03.jpg" alt="Item 3">
-                  <h4>Rabbit Lucky</h4>
-                  <h6>User 3</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-04.jpg" alt="Item 4">
-                  <h4>Cat Luna</h4>
-                  <h6>User 4</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-05.jpg" alt="Item 5">
-                  <h4>Cat Bella</h4>
-                  <h6>User 5</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-06.jpg" alt="Item 6">
-                  <h4>Dog Rex</h4>
-                  <h6>User 6</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-04.jpg" alt="Item 7">
-                  <h4>Cat Luna</h4>
-                  <h6>User 4</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-05.jpg" alt="Item 8">
-                  <h4>Cat Bella</h4>
-                  <h6>User 5</h6>
-                </div>
-              </a>
-              <a href="ad-page.html">
-                <div class="featured-item">
-                  <img src="images/item-06.jpg" alt="Item 9">
-                  <h4>Dog Rex</h4>
-                  <h6>User 6</h6>
+                  <img th:src="${ad.pet.image}" alt="Item 1">
+                  <h4 th:text="${ad.pet.name}">Hedgehog Carl</h4>
+                  <h6 th:text="${ad.user.username}">User 1</h6>
                 </div>
               </a>
             </div>
