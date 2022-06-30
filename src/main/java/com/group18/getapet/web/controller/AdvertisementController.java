@@ -102,6 +102,7 @@ public class AdvertisementController {
                                    @RequestParam Long pet,
                                    @RequestParam String location) {
         String username = request.getRemoteUser();
+
         User user1 = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Pet p = this.petService.findById(pet).orElseThrow(() -> new PetNotFoundException(pet));
         this.advertisementService.create(title, description, adType, p, user1, location);

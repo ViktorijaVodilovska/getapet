@@ -1,0 +1,13 @@
+#container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    top: 70px;
+}
+#container > * {
+    padding: 20px;
+}
+select {
+    width: 190px;
+    height: 30px;
+}

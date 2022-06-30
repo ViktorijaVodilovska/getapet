@@ -4,27 +4,27 @@
     <!-- Page Content -->
     <!-- Single Starts Here -->
     <div class="single-product">
-      <div class="container">
+      <div class="container" id="userBox">
         <div class="row">
             <div class="col-md-12">
-                <div class="section-heading">
+                <div class="section-heading" id="userData">
                     <div class="line-dec"></div>
                     <h1 th:text="${user.getFullName()}"></h1>
                     <h4 th:text="${user.getUsername()}"></h4>
                     <h5 th:text="${user.getPhoneNumber()}"></h5>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="userImage">
                 <img src="images/User.png"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="userAds">
             <div class="col-12" th:if="${userAds.size() > 0}">
                 <div class="row">
                     <th:block th:each="ad : ${userAds}" }>
 
-                        <div class="card" style="width: 18rem;">
-                            <a th:href="@{'/ads/{id}' (id=${ad.getId()})}" style="color: inherit">
+                        <div class="card">
+                            <a th:href="@{'/ads/{id}' (id=${ad.getId()})}">
                                 <div class="card-header">
                                     <h2 th:text="${ad.getTitle()}"></h2>
                                 </div>
