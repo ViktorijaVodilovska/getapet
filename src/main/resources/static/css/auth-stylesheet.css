@@ -1,0 +1,9 @@
+#signupForm, #loginForm {
+    background-color: #eee;
+    position:relative;
+    top: 100px
+}
+
+#navbarResponsive {
+    visibility: hidden;
+}

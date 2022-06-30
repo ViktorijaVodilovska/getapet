@@ -1,0 +1,22 @@
+#userBox {
+    position: relative;
+    display: flex;
+}
+
+#userData {
+    position: relative;
+}
+
+#userData:first-child {
+    position: relative;
+    left: 200px;
+}
+
+#userImage {
+    bottom: 150px;
+}
+
+#userImage img{
+    height: 130px;
+    width: 120px;
+}
