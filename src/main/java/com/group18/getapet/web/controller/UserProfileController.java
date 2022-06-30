@@ -31,9 +31,7 @@ public class UserProfileController {
 
     @GetMapping
     public String getProfilePage(Model model, HttpServletRequest request) {
-//        String username = request.getRemoteUser();
-        String username = "jovanaM";
-
+        String username = request.getRemoteUser();
 
         User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         List<Advertisement> ads = advertisementService.listAllByUser(user);
