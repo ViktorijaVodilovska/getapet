@@ -13,6 +13,6 @@ public interface UserService {
     void deleteByUsername(String username);
     User save(User user);
     User create(String username, String password,String name, String surname, String number, UserRole role);
-    User update(String username, String password,String name, String surname, String number, UserRole role);
+    User update(String username, String password, String name, String surname, String number, UserRole role);
 
 }
