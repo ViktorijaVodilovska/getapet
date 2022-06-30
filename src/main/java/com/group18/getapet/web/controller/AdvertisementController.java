@@ -109,7 +109,7 @@ public class AdvertisementController {
         return "redirect:/ads";
     }
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/edit/{id}")
     public String updatePet(@PathVariable Long id, Model model) {
         if (this.advertisementService.findById(id) != null) {
             Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
