@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //List ads for adoption (ADOPTING)
 //List ads for buying
@@ -28,14 +29,12 @@ public class HomeController {
     }
 
     @GetMapping
-    public String seeAds(@RequestParam(required = false) AdType type, Model model) {
-        List<Advertisement> ads;
-        if(type == null)
-            ads = this.adsservice.listAll();
-        else {
-            ads = this.adsservice.listAllByAdType(type);
-        }
-        model.addAttribute("ads", ads);
+    public String seeAds(Model model) {
+        List<Advertisement> adsForSale = this.adsservice.listAllByAdType(AdType.SELLING).stream().limit(12).collect(Collectors.toList());
+        List<Advertisement> adsForAdoption = this.adsservice.listAllByAdType(AdType.GIVING).stream().limit(12).collect(Collectors.toList());
+
+        model.addAttribute("adsForSale", adsForSale);
+        model.addAttribute("adsForAdoption", adsForAdoption);
         model.addAttribute("bodyContent","index");
         return "master-template";
     }
