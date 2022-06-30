@@ -17,7 +17,7 @@ public interface AdvertisementService {
     void deleteById(Long id);
     Advertisement save(Advertisement advertisement);
     Advertisement create(String title, String description, AdType adType, Pet pet, User user, String location);
-    Advertisement update(Long id, String title, AdType adType, Pet pet, User user, String location);
+    Advertisement update(Long id, String title, String description, AdType adType, Pet pet, User user, String location);
     List<Advertisement> listAllByAdType(AdType adType);
     List<Advertisement> listAllByUser(User user);
     List<Advertisement> filterAds(AdType adType, PetType petType, PetGender petGender, PetSize petSize, Integer petAge);
