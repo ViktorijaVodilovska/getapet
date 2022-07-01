@@ -4,8 +4,11 @@
     <!-- Page Content -->
     <!-- Single Starts Here -->
     <div class="single-product">
-      <div class="container" id="userBox">
+      <div class="container">
         <div class="row">
+            <div class="col-md-6" id="userImage">
+                <img src="images/User.png"/>
+            </div>
             <div class="col-md-12">
                 <div class="section-heading" id="userData">
                     <div class="line-dec"></div>
@@ -14,9 +17,9 @@
                     <h5 th:text="${user.getPhoneNumber()}"></h5>
                 </div>
             </div>
-            <div class="col-md-6" id="userImage">
-                <img src="images/User.png"/>
-            </div>
+            <a th:href="@{'/profile/edit/' + ${user.getUsername()}}">
+                <button type="button">Edit</button>
+            </a>
         </div>
         <div class="row" id="userAds">
             <div class="col-12" th:if="${userAds.size() > 0}">

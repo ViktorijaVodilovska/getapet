@@ -33,9 +33,7 @@ public class UserProfileController {
     public String getProfilePage(Model model, HttpServletRequest request) {
         String username = request.getRemoteUser();
 
-
-        //User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-        User user = userService.findByUsername("snezana_a").orElseThrow(() -> new UserNotFoundException("snezana_a"));
+        User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         List<Advertisement> ads = advertisementService.listAllByUser(user);
         model.addAttribute("user", user);
         model.addAttribute("userAds", ads);
@@ -53,34 +51,32 @@ public class UserProfileController {
 //        return "master-template";
 //    }
 
-    @GetMapping("/edit")
-    public String editProfile(Model model, HttpServletRequest request) {
-        String username = request.getRemoteUser();
-
+    @GetMapping("/edit/{username}")
+    public String editProfile(Model model, HttpServletRequest request, @PathVariable("username") String username) {
         User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         model.addAttribute("user", user);
+        System.out.println("HERE " + user.getFullName());
+        model.addAttribute("bodyContent", "userEdit");
 
-        return "";
+        return "master-template";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/edit/{username}")
     public String saveInfo(
+            HttpServletRequest request,
+            @PathVariable("username") String username,
             @RequestParam String name,
             @RequestParam String surname,
-            @RequestParam String password,
-            @RequestParam String number,
-            HttpServletRequest request
+            @RequestParam String phoneNumber
     ) {
         try {
-            if (name.equals("") || surname.equals("") || password.equals("")) {
-                return "redirect:/profile";
-            }
-            String username = request.getRemoteUser();
+            String finalUsername = username;
+            User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(finalUsername));
+            this.userService.update(username, user.getPassword(), name, surname, phoneNumber, user.getRole());
 
-            User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-            this.userService.update(username, password, name, surname, number, user.getRole());
             return "redirect:/profile";
         } catch (UsernameAlreadyExistsException | InvalidArgumentsException | PasswordsDoNotMatchException ex) {
+            // TODO:
             return "redirect:/profile/edit?hasError=true&&error=" + ex.getMessage();
         }
     }

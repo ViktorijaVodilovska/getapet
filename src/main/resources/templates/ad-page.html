@@ -64,6 +64,9 @@
                          <h5 th:text="${user.getUsername()}"></h5>
                          <h5 th:text="${user.getPhoneNumber()}"></h5>
                      </div>
+                     <a th:href="@{'/ads/edit/' + ${ad.getId()}}">
+                         <button type="button">Edit</button>
+                     </a>
                  </div>
              </div>
          </div>

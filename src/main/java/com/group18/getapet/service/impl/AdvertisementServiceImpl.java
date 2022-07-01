@@ -67,12 +67,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public Advertisement update(Long id,
                                 String title,
+                                String description,
                                 AdType adType,
                                 Pet pet,
                                 User user,
                                 String location) {
         Advertisement advertisement = this.advertisementRepository.getById(id);
         advertisement.setTitle(title);
+        advertisement.setDescription(description);
         advertisement.setAdType(adType);
         advertisement.setPet(pet);
         advertisement.setUser(user);
