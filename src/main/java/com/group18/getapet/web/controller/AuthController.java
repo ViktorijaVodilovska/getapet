@@ -26,8 +26,11 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String getRegisterPage() {
-        return "";
+    public String getRegisterPage(Model model) {
+
+        model.addAttribute("bodyContent", "register");
+
+        return "master-template";
     }
 
     @PostMapping("/register")
@@ -47,8 +50,11 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
-        return "";
+    public String getLoginPage(Model model) {
+
+        model.addAttribute("bodyContent", "login");
+
+        return "master-template";
     }
 
     @PostMapping("/login")

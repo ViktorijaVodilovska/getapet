@@ -27,14 +27,15 @@
 
 <body>
 
-<div class="container" style="position: relative; top: 150px">
+<div class="container" style="position: relative; top: 50px">
     <div class="row">
         <div class="col-sm-6">
-            <form th:method="POST" th:action="@{'/ads/add'}">
+            <form th:method="POST" th:action="@{'/ads/edit/' + ${ad.getId()}}">
                 <div class="form-group">
                     <label for="title">Advertisement title</label>
                     <input type="text"
                            class="form-control"
+                           required
                            id="title"
                            name="title"
                            th:value="(${ad} != null ? ${ad.getTitle()} : '')"
@@ -44,12 +45,15 @@
                     <label for="adType">Ad Type</label>
                     <select name="adType" class="form-control" id="adType">
                         <option th:each="type : ${T(com.group18.getapet.model.enumerations.AdType).values()}"
-                                th:value="${type}" th:text="${type}"></option>
+                                th:value="${type}"
+                                th:text="${type}"
+                                th:selected="(${ad.getAdType()} == ${type} ? true : false)">
+                        </option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="pet">Pet</label>
-                    <select name="pet" class="form-control" id="pet">
+                    <label for="petID">Pet</label>
+                    <select name="petID" class="form-control" id="petID">
                         <option th:each="pet : ${pets}"
                                 th:value="${pet.getId()}" th:text="${pet.getId()}"></option>
                     </select>
@@ -70,10 +74,11 @@
                            class="form-control"
                            id="description"
                            name="description"
-                           th:value="(${ad} != null ? ${ad.getDescription()()} : '')"
+                           th:value="(${ad} != null ? ${ad.getDescription()} : '')"
                            placeholder="Description">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <input type="submit" value="Save"/>
+                <a th:href="${'/ads'}"><input type="button" value="Cancel"/></a>
             </form>
         </div>
     </div>
@@ -91,13 +96,13 @@
 <script src="/js/owl.js"></script>
 
 
-<script language = "text/Javascript">
+<script language="text/Javascript">
     cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-    function clearField(t){                   //declaring the array outside of the
-        if(! cleared[t.id]){                      // function makes it static and global
+    function clearField(t) {                   //declaring the array outside of the
+        if (!cleared[t.id]) {                      // function makes it static and global
             cleared[t.id] = 1;  // you could use true and false, but that's more typing
-            t.value='';         // with more chance of typos
-            t.style.color='#fff';
+            t.value = '';         // with more chance of typos
+            t.style.color = '#fff';
         }
     }
 </script>

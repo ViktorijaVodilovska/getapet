@@ -1,150 +1,135 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-  <body>
-    <!-- Page Content -->
 
-    <!-- Filters -->
-    <form th:method="GET" th:action="@{'/ads'}">
-    <div id="TypeFilter" style="margin-left: 300px;">
-        <p style="font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Service:</p>
-       <!--<form>-->
-         <!--<select id="adType" name="adType" onchange="this.form.submit()" style="  cursor: pointer;-->
-         <select id="adType" name="adType" style="  cursor: pointer;
-        line-height: 1.1;
-        background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-           <option value="">–Select ad type</option>
-           <option th:each="adType: ${adTypes}" th:value="${adType}" th:text="${adType}"></option>
-         </select>
-         <!--<button id="adType" type="submit">Filter</button>-->
-       <!--</form>-->
+<body>
+  <!-- Page Content -->
 
+  <!-- Filters -->
+  <form th:method="GET" th:action="@{'/ads'}">
+    <div id="container">
+      <div id="serviceType">
+        <select id="adType" name="adType">
+          <option value="">–Select ad type</option>
+          <option th:each="adType: ${adTypes}" th:value="${adType}" th:text="${adType}"></option>
+        </select>
       </div>
 
-      </br>
-      <div style="flex-direction: row;display:inline-block; margin-left: 800px">
-        <div class="Column">
-          <p style="font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select type of Pet:  </p>
-          <!--<form>-->
-          <select  id="petType" name="petType" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-            <option value="">–Select pet type</option>
-            <option th:each="petType: ${petTypes}" th:value="${petType}" th:text="${petType}"></option>
-          </select>
-          <p>&emsp; </p>
-        </div>
+      <div id="petBox1">
+        <!--<form>-->
+        <select id="petType" name="petType">
+          <option value="">–Select pet type</option>
+          <option th:each="petType: ${petTypes}" th:value="${petType}" th:text="${petType}"></option>
+        </select>
+        <p>&emsp; </p>
+      </div>
 
-        <div class="Column">
-          <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif"> Select age of Pet:  </p>
-          <input id="petAge" type="number" name="petAge" size="18" style="width: 150px; margin-bottom: -20px; padding-bottom: -10px">
-          <p style="height: 21px">&emsp; </p>
-        </div>
+      <div id="petBox2">
+        <input id="petAge" type="number" name="petAge" size="18" placeholder="Select pet age">
+        <p>&emsp; </p>
+      </div>
 
-        <div class="Column">
-          <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Gender: </p>
-          <select  id="petGender" name="petGender" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-            <option value="">–Select gender</option>
-            <option th:each="petGender: ${petGenders}" th:value="${petGender}" th:text="${petGender}"></option>
-          </select>
-          <p>&emsp; </p>
+      <div id="petBox3">
+        <select  id="petGender" name="petGender">
+          <option value="">–Select gender</option>
+          <option th:each="petGender: ${petGenders}" th:value="${petGender}" th:text="${petGender}"></option>
+        </select>
+        <p>&emsp; </p>
+      </div>
+
+      <div id="petBox4">
+        <select  id="petSize" name="petSize">
+          <option value="">–Select size</option>
+          <option th:each="petSize: ${petSizes}" th:value="${petSize}" th:text="${petSize}"></option>
+        </select>
+        <p>&emsp; </p>
+      </div>
+      <div id="buttonBox">
+        <button id="filterButton" type="submit" class="btn btn-info">Filter</button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Filters -->
+
+  <!-- Items Starts Here -->
+  <div class="featured-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h1>Featured Items</h1>
+          </div>
         </div>
-        <div class="Column">
-          <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Size: </p>
-          <select  id="petSize" name="petSize" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-            <option value="">–Select size</option>
-            <option th:each="petSize: ${petSizes}" th:value="${petSize}" th:text="${petSize}"></option>
-          </select>
-          <p>&emsp; </p>
-        </div>
-        <!--<div class="Column">
-          <p style=" font-size: large;font-family: Verdana, Geneva, Tahoma, sans-serif;"> Select Colour: </p>
-          <select  id="petColor" name="petColor" style=" cursor: pointer; line-height: 2.1; background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 100%);">
-            <option value="">–Select colour</option>
-            <option th:each="petColor: ${petColors}" th:value="${petColor}" th:text="${petColor}"></option>
-          </select>
-          <p>&emsp; </p>
+       <!-- <div class="col-md-8 col-sm-12">
+          <div id="filters" class="button-group">
+            <button class="btn btn-primary" data-filter="*">All Ads</button>
+            <button class="btn btn-primary" data-filter=".new">Newest</button>
+          </div>
         </div>-->
       </div>
-      <button type="submit">Filter</button>
-    </form>
+    </div>
+  </div>
 
-    <!-- Filters -->
+  <div class="featured container no-gutter">
 
-    <!-- Items Starts Here -->
-    <div class="featured-page">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-sm-12">
-            <div class="section-heading">
-              <div class="line-dec"></div>
-              <h1>Featured Items</h1>
+      <div class="row posts">
+
+        <div class="item new col-md-4" th:each="ad : ${advertisementList}">
+          <a th:href="@{'/ads/{id}' (id=${ad.getId()})}">
+            <div class="featured-item">
+              <img th:src="${ad.pet.image}" alt="">
+              <h4 th:text="${ad.title}"></h4>
+              <h6 th:text="${ad.user.username}"></h6>
+              <h7 th:text="${ad.location}"></h7>
             </div>
-          </div>
-         <!-- <div class="col-md-8 col-sm-12">
-            <div id="filters" class="button-group">
-              <button class="btn btn-primary" data-filter="*">All Ads</button>
-              <button class="btn btn-primary" data-filter=".new">Newest</button>
-            </div>
-          </div>-->
+          </a>
+        </div>
+
+      </div>
+  </div>
+
+  <div class="page-navigation">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul>
+            <li class="current-page"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+          </ul>
         </div>
       </div>
     </div>
-  
-    <div class="featured container no-gutter">
+  </div>
+  <!-- Featred Page Ends Here -->
 
-        <div class="row posts">
-
-          <div class="item new col-md-4" th:each="ad : ${advertisementList}">
-            <a th:href="@{'/ads/{id}' (id=${ad.getId()})}">
-              <div class="featured-item">
-                <img th:src="${ad.pet.image}" alt="">
-                <h4 th:text="${ad.title}"></h4>
-                <h6 th:text="${ad.user.username}"></h6>
-                <h7 th:text="${ad.location}"></h7>
-              </div>
-            </a>
-          </div>
-
-        </div>
-    </div>
-
-    <div class="page-navigation">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <ul>
-              <li class="current-page"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Featred Page Ends Here -->
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="jquery/jquery.min.js"></script>
-    <script src="bootstrapdle.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="jquery/jquery.min.js"></script>
+  <script src="bootstrapdle.min.js"></script>
 
 
-    <!-- Additional Scripts -->
-    <script src="js/custom.js"></script>
-    <script src="js/owl.js"></script>
-    <script src="js/isotope.js"></script>
+  <!-- Additional Scripts -->
+  <script src="js/custom.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/isotope.js"></script>
 
 
-    <script language = "text/Javascript"> 
-      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-      function clearField(t){                   //declaring the array outside of the
-      if(! cleared[t.id]){                      // function makes it static and global
-          cleared[t.id] = 1;  // you could use true and false, but that's more typing
-          t.value='';         // with more chance of typos
-          t.style.color='#fff';
-          }
-      }
-    </script>
+  <script language = "text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t){                   //declaring the array outside of the
+    if(! cleared[t.id]){                      // function makes it static and global
+        cleared[t.id] = 1;  // you could use true and false, but that's more typing
+        t.value='';         // with more chance of typos
+        t.style.color='#fff';
+        }
+    }
+  </script>
 
 
-  </body>
+</body>
 
 </html>
