@@ -27,7 +27,7 @@
 
 <body>
 
-<div class="container" style="position: relative; top: 150px">
+<div class="container" style="position: relative; top: 150px; margin-bottom: 100px">
     <div class="row">
         <div class="col-sm-6">
             <form th:method="POST" th:action="@{'/ads/add'}">
@@ -51,7 +51,7 @@
                     <label for="pet">Pet</label>
                     <select name="pet" class="form-control" id="pet">
                         <option th:each="pet : ${pets}"
-                                th:value="${pet.getId()}" th:text="${pet.getId()}"></option>
+                                th:value="${pet.getId()}" th:text="${pet.getName()}"></option>
                     </select>
                 </div>
                 <div class="form-group">

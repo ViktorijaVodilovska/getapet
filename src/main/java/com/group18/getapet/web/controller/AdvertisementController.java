@@ -5,9 +5,7 @@ import com.group18.getapet.model.Advertisement;
 import com.group18.getapet.model.Pet;
 import com.group18.getapet.model.User;
 import com.group18.getapet.model.enumerations.*;
-import com.group18.getapet.model.exceptions.AdvertisementNotFoundException;
-import com.group18.getapet.model.exceptions.PetNotFoundException;
-import com.group18.getapet.model.exceptions.UserNotFoundException;
+import com.group18.getapet.model.exceptions.*;
 import com.group18.getapet.service.AdvertisementService;
 import com.group18.getapet.service.PetService;
 import com.group18.getapet.service.UserService;
@@ -15,9 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/ads")
@@ -94,6 +96,47 @@ public class AdvertisementController {
         return "master-template";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editAdvertisment(HttpServletRequest request,@PathVariable Long id, Model model) {
+        if (this.advertisementService.findById(id) != null) {
+            String username = request.getRemoteUser();
+//            String username = "jovanaM";
+
+            Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
+            User user = this.userService.findByUsername(username).orElseThrow(() -> new  UserNotFoundException(username));
+            List<Pet> pets = this.petService.listAll();
+
+            model.addAttribute("ad", ad);
+            model.addAttribute("user", user);
+            model.addAttribute("pets", pets);
+            model.addAttribute("bodyContent","editAdvertisment");
+            return "master-template";
+        }
+        return "redirect:/ads";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateAdvertisment(
+            @PathVariable("id") String id,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam AdType adType,
+            @RequestParam Long petID,
+            @RequestParam String location
+    ) {
+        try {
+            Long adId = Long.parseLong(id);
+            Advertisement ad = advertisementService.findById(adId).orElseThrow(() -> new AdvertisementNotFoundException(adId));
+            Pet pet = petService.findById(petID).orElseThrow(() -> new PetNotFoundException(petID));
+            this.advertisementService.update(adId, title, description, adType, pet, ad.getUser(), location);
+
+            return "redirect:/ads/"+id;
+        } catch (UsernameAlreadyExistsException | InvalidArgumentsException | PasswordsDoNotMatchException | PetNotFoundException ex) {
+            // TODO:
+            return "redirect:/ads/edit?hasError=true&&error=" + ex.getMessage();
+        }
+    }
+
     @PostMapping("/add")
     public String addAdvertisement(HttpServletRequest request,
                                    @RequestParam String title,
@@ -102,22 +145,12 @@ public class AdvertisementController {
                                    @RequestParam Long pet,
                                    @RequestParam String location) {
         String username = request.getRemoteUser();
+//        String username = "jovanaM";
 
         User user1 = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Pet p = this.petService.findById(pet).orElseThrow(() -> new PetNotFoundException(pet));
         this.advertisementService.create(title, description, adType, p, user1, location);
 
-        return "redirect:/ads";
-    }
-
-    @GetMapping("/{id}/update")
-    public String updatePet(@PathVariable Long id, Model model) {
-        if (this.advertisementService.findById(id) != null) {
-            Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
-            model.addAttribute("ad", ad);
-            model.addAttribute("bodyContent","addAdvertisement");
-            return "master-template";
-        }
         return "redirect:/ads";
     }
 

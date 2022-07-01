@@ -34,7 +34,8 @@ public class UserProfileController {
         String username = request.getRemoteUser();
 
 
-        User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        //User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        User user = userService.findByUsername("snezana_a").orElseThrow(() -> new UserNotFoundException("snezana_a"));
         List<Advertisement> ads = advertisementService.listAllByUser(user);
         model.addAttribute("user", user);
         model.addAttribute("userAds", ads);
