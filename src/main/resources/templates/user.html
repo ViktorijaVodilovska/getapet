@@ -4,8 +4,8 @@
     <!-- Page Content -->
     <!-- Single Starts Here -->
     <div class="single-product">
-      <div class="container">
-        <div class="row">
+      <div class="container" id="mainContainer">
+        <div class="row" id="userRow1">
             <div class="col-md-6" id="userImage">
                 <img src="images/User.png"/>
             </div>
@@ -18,15 +18,15 @@
                 </div>
             </div>
             <a th:href="@{'/profile/edit/' + ${user.getUsername()}}">
-                <button type="button">Edit</button>
+                <button type="button" class="btn btn-info" id="editButton">Edit</button>
             </a>
         </div>
-        <div class="row" id="userAds">
+        <div class="row" id="adsRow1">
             <div class="col-12" th:if="${userAds.size() > 0}">
-                <div class="row">
-                    <th:block th:each="ad : ${userAds}" }>
+                <div class="row" id="#adsRow2">
+                    <th:block th:each="ad : ${userAds}">
 
-                        <div class="card">
+                        <div class="card" id="userAds">
                             <a th:href="@{'/ads/{id}' (id=${ad.getId()})}">
                                 <div class="card-header">
                                     <h2 th:text="${ad.getTitle()}"></h2>
