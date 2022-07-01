@@ -100,7 +100,6 @@ public class AdvertisementController {
     public String editAdvertisment(HttpServletRequest request,@PathVariable Long id, Model model) {
         if (this.advertisementService.findById(id) != null) {
             String username = request.getRemoteUser();
-//            String username = "jovanaM";
 
             Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
             User user = this.userService.findByUsername(username).orElseThrow(() -> new  UserNotFoundException(username));

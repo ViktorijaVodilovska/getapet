@@ -5,18 +5,37 @@
 
 #userData {
     position: relative;
+    width: 350px;
 }
 
 #userData:first-child {
     position: relative;
     left: 200px;
+    bottom: 150px
 }
 
 #userImage {
-    bottom: 150px;
+    top: 200px
 }
 
 #userImage img{
     height: 130px;
     width: 120px;
+}
+
+#mainContainer {
+    position: relative;
+    display: flex;
+}
+
+#adsRow1{
+    position: relative;
+    width: 300px;
+    top: 100px;
+    left: 100px;
+}
+
+
+#userAds {
+    margin-bottom: 50px;
 }

@@ -34,7 +34,7 @@
 <!-- Page Content -->
 <!-- Single Starts Here -->
 <div class="single-product">
-    <div class="container">
+    <div class="container" style="position: relative; top: 100px; margin-bottom: 100px">
      <div class="row">
          <div class="card">
              <div class="container-fliud">
@@ -59,13 +59,13 @@
                          <h5 th:text="${pet.getName()}"></h5>
                          <h5 th:text="${pet.getPetType()}"></h5>
                          <form th:action="@{'/pets/{id}' (id=${pet.getId()})}">
-                             <button>More info about the pet</button>
+                             <button class="btn btn-light" type="button">More info about the pet</button>
                          </form>
                          <h5 th:text="${user.getUsername()}"></h5>
                          <h5 th:text="${user.getPhoneNumber()}"></h5>
                      </div>
                      <a th:href="@{'/ads/edit/' + ${ad.getId()}}">
-                         <button type="button">Edit</button>
+                         <button type="button" class="btn btn-info">Edit</button>
                      </a>
                  </div>
              </div>
