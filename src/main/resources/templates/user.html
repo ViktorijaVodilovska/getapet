@@ -29,7 +29,7 @@
                         <div class="card" id="userAds">
                             <a th:href="@{'/ads/{id}' (id=${ad.getId()})}">
                                 <div class="card-header">
-                                    <h2 th:text="${ad.getTitle()}"></h2>
+                                    <h5 th:text="${ad.getTitle()}"></h5>
                                 </div>
                                 <img class="card-img-top" th:src="${ad.getPet().getImage()}" alt="Card image cap"
                                      src="">
@@ -43,7 +43,6 @@
                     </th:block>
                 </div>
             </div>
-
         </div>
       </div>
     </div>
