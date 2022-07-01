@@ -9,22 +9,34 @@
             <div class="col-md-12">
                 <form th:method="post" th:action="@{'/profile/edit/' + ${user.getUsername()}}">
                     <label for="picture">Picture</label><br>
-                    <input type="image" id="picture" name="picture"><br>
+                    <input type="text"
+                           id="picture"
+                           name="picture"><br>
 
                     <label for="name">First name:</label><br>
-                    <input type="text" required id="name" name="name"
-
-                           th:placeholder="${user.getName()}"><br>
+                    <input type="text"
+                           required
+                           id="name"
+                           name="name"
+                           th:value="${user.getName()}"
+                           placeholder="Enter First Name"><br>
 
                     <label for="surname">Last name:</label><br>
-                    <input type="text" required id="surname" name="surname"
+                    <input type="text"
+                           required
+                           id="surname"
+                           name="surname"
+                           th:value="${user.getSurname()}"
+                           placeholder="Enter Last Name"><br>
 
-                           th:placeholder="${user.getSurname()}"><br>
 
                     <label for="phoneNumber">Phone Number:</label><br>
-                    <input type="text" required id="phoneNumber" name="phoneNumber"
-
-                           th:placeholder="${user.getPhoneNumber()}"><br>
+                    <input type="text"
+                           required
+                           id="phoneNumber"
+                           name="phoneNumber"
+                           th:value="${user.getPhoneNumber()}"
+                           placeholder="Enter Phone Number"><br>
 
                     <input type="submit" value="Save"/> <a th:href="${'/profile'}"><input type="button" value="Cancel"/></a>
                 </form>
