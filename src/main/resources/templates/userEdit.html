@@ -1,62 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Get A Pet - Add New Pet</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/tooplate-main.css">
+    <link rel="stylesheet" href="/css/owl.css">
+    <!--
+    Tooplate 2114 Pixie
+    https://www.tooplate.com/view/2114-pixie
+    -->
+</head>
 <body>
 <!-- Page Content -->
 <!-- Single Starts Here -->
-<div class="single-product">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+<div class="container" style="position: relative; top: 170px; margin-bottom: 50px">
+    <div class="row">
+        <div class="col-sm-6">
                 <form th:method="post" th:action="@{'/profile/edit/' + ${user.getUsername()}}">
-                    <label for="picture">Picture</label><br>
-                    <input type="text"
-                           id="picture"
-                           name="picture"><br>
+                    <div class="form-group">
+                        <label for="picture">Picture</label><br>
+                        <input type="text"
+                            id="picture"
+                            name="picture"
+                            class="form-control"
+                            required><br>
+                    <div/>
 
-                    <label for="name">First name:</label><br>
-                    <input type="text"
+                    <div class="form-group">
+                        <label for="name">First name:</label><br>
+                        <input type="text"
                            required
+                           class="form-control"
                            id="name"
                            name="name"
                            th:value="${user.getName()}"
                            placeholder="Enter First Name"><br>
+                    </div>
 
-                    <label for="surname">Last name:</label><br>
-                    <input type="text"
-                           required
-                           id="surname"
-                           name="surname"
-                           th:value="${user.getSurname()}"
-                           placeholder="Enter Last Name"><br>
+                    <div class="form-group">
+                        <label for="surname">Last name:</label><br>
+                        <input type="text"
+                               required
+                               id="surname"
+                               name="surname"
+                               class="form-control"
+                               th:value="${user.getSurname()}"
+                               placeholder="Enter Last Name"><br>
+                    </div>
 
-
-                    <label for="phoneNumber">Phone Number:</label><br>
-                    <input type="text"
-                           required
-                           id="phoneNumber"
-                           name="phoneNumber"
-                           th:value="${user.getPhoneNumber()}"
-                           placeholder="Enter Phone Number"><br>
-
-                    <input type="submit" value="Save"/> <a th:href="${'/profile'}"><input type="button" value="Cancel"/></a>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number:</label><br>
+                        <input type="text"
+                               required
+                               id="phoneNumber"
+                               name="phoneNumber"
+                               class="form-control"
+                               th:value="${user.getPhoneNumber()}"
+                               placeholder="Enter Phone Number"><br>
+                    </div>
+                    <input type="submit" value="Save" class="btn btn-primary"/> <a th:href="${'/profile'}"><input type="button" value="Cancel" class="btn btn-danger"/></a>
+                    </div>
                 </form>
-
-            </div>
         </div>
     </div>
 </div>
 <!-- Single Page Ends Here -->
 
 <!-- Bootstrap core JavaScript -->
-<script src="jquery/jquery.min.js"></script>
-<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
 <!-- Additional Scripts -->
-<script src="js/custom.js"></script>
-<script src="js/owl.js"></script>
-<script src="js/isotope.js"></script>
-<script src="js/flex-slider.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/owl.js"></script>
+<script src="/js/isotope.js"></script>
+<script src="/js/flex-slider.js"></script>
 
 
 <script language="text/Javascript">
