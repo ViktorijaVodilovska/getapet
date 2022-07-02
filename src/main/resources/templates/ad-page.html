@@ -58,13 +58,13 @@
                          <p class="ad-description" th:text="${ad.getDescription()}"></p>
                          <h5 th:text="${pet.getName()}"></h5>
                          <h5 th:text="${pet.getPetType()}"></h5>
-                         <form th:action="@{'/pets/{id}' (id=${pet.getId()})}">
+                         <form th:href="@{'/pets/{id}' + id=${pet.getId()}}">
                              <button class="btn btn-light" type="button">More info about the pet</button>
                          </form>
                          <h5 th:text="${user.getUsername()}"></h5>
                          <h5 th:text="${user.getPhoneNumber()}"></h5>
                      </div>
-                     <a th:href="@{'/ads/edit/' + ${ad.getId()}}">
+                     <a th:href="@{'/ads/edit/' + ${ad.getId()}}" sec:authorize="isAuthenticated()">
                          <button type="button" class="btn btn-info">Edit</button>
                      </a>
                  </div>

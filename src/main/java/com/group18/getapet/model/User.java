@@ -3,12 +3,7 @@ package com.group18.getapet.model;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +35,9 @@ public class User implements UserDetails {
 
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL)
     private List<Advertisement> ads;
 
     @Enumerated(value = EnumType.STRING)

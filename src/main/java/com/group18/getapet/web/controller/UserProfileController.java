@@ -64,14 +64,13 @@ public class UserProfileController {
     @PostMapping("/edit/{username}")
     public String saveInfo(
             HttpServletRequest request,
-            @PathVariable("username") String username,
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String phoneNumber
     ) {
         try {
-            String finalUsername = username;
-            User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(finalUsername));
+            String username = request.getRemoteUser();
+            User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
             this.userService.update(username, user.getPassword(), name, surname, phoneNumber, user.getRole());
 
             return "redirect:/profile";

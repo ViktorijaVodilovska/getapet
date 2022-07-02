@@ -12,7 +12,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="#"><img src="images/logo.png" alt="" ></a>
+        <a class="navbar-brand" th:href="@{'/'}"><img src="images/logo.png" alt="" ></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,11 +35,17 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{'/profile'}">User profile</a>
                 </li>
-                <li class="nav-item" >
-                    <a class="nav-link" th:href="@{'/auth/login'}" style="color: rgb(146, 183, 243);">Log In</a>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{'/login'}" style="color: rgb(146, 183, 243);">Log In</a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{'/register'}" style="color: rgb(146, 183, 243);" >Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/auth/register'}" style="color: rgb(146, 183, 243);" >Register</a>
+                    <a class="nav-link" th:href="@{'/profile'}">
+                        <th:block th:if="${#request.getRemoteUser()!=null}"
+                                  th:text="${#request.getRemoteUser()}"/>
+                    </a>
                 </li>
             </ul>
         </div>

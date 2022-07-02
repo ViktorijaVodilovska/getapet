@@ -3,6 +3,8 @@ package com.group18.getapet.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.group18.getapet.model.User;
@@ -23,32 +25,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> listAll() {
-        return this.userRepository.findAll();
-    }
-
-    @Override
-    public Optional<User> findByUsernameAndPassword(String username, String password) {
-        return this.userRepository.findByUsernameAndPassword(username, password);
-    }
-
-    @Override
     public Optional<User> findByUsername(String username) {
         return this.userRepository.findByUsername(username);
-    }
-
-    @Override
-    public void deleteByUsername(String username) {
-        if (this.userRepository.findByUsername(username).isPresent()) {
-            this.userRepository.deleteByUsername(username);
-        } else {
-            throw new UserNotFoundException();
-        }
-    }
-
-    @Override
-    public User save(User user) {
-        return this.userRepository.save(user);
     }
 
     @Override
@@ -70,5 +48,11 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(number);
         user.setRole(role);
         return this.userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(()-> new UsernameNotFoundException(username));
     }
 }

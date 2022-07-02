@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping
 public class AuthController {
 
     private final AuthService authService;
@@ -39,10 +39,9 @@ public class AuthController {
                            @RequestParam String repeatedPassword,
                            @RequestParam String name,
                            @RequestParam String surname,
-                           @RequestParam String number,
-                           @RequestParam UserRole role) {
+                           @RequestParam String number) {
         try{
-            this.authService.register(username, password, repeatedPassword, name, surname, number, role);
+            this.authService.register(username, password, repeatedPassword, name, surname, number);
             return "redirect:/login";
         } catch (InvalidArgumentsException | PasswordsDoNotMatchException exception) {
             return "redirect:/register?error=" + exception.getMessage();
@@ -64,7 +63,7 @@ public class AuthController {
             user = this.authService.login(request.getParameter("username"),
                     request.getParameter("password"));
             request.getSession().setAttribute("user", user);
-            return "redirect:/ads";
+            return "redirect:/home";
         }
         catch (InvalidUserCredentialsException exception) {
             model.addAttribute("hasError", true);
@@ -73,6 +72,10 @@ public class AuthController {
         }
     }
 
-
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/login";
+    }
 
 }

@@ -13,13 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/ads")
@@ -45,10 +40,10 @@ public class AdvertisementController {
             @RequestParam(required = false) Integer petAge,
             Model model) {
         List<Advertisement> advertisementList;
-        if(adType==null && petType == null && petGender == null && petSize == null && petAge==null){
+        if (adType == null && petType == null && petGender == null && petSize == null && petAge == null) {
             advertisementList = this.advertisementService.listAll();
-        }else{
-            advertisementList = this.advertisementService.filterAds(adType,petType,petGender,petSize,petAge);
+        } else {
+            advertisementList = this.advertisementService.filterAds(adType, petType, petGender, petSize, petAge);
         }
         model.addAttribute("advertisementList", advertisementList);
         List<AdType> types = List.of(AdType.values());
@@ -61,9 +56,10 @@ public class AdvertisementController {
         model.addAttribute("petGenders", petGenders);
         List<PetSize> petSizes = List.of(PetSize.values());
         model.addAttribute("petSizes", petSizes);
-        model.addAttribute("bodyContent","ads");
+        model.addAttribute("bodyContent", "ads");
         return "master-template";
     }
+
     @GetMapping("/{id}")
     public String getAdvertisementById(@PathVariable Long id, Model model) {
         if (this.advertisementService.findById(id).isPresent()) {
@@ -97,58 +93,43 @@ public class AdvertisementController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editAdvertisment(HttpServletRequest request,@PathVariable Long id, Model model) {
-        if (this.advertisementService.findById(id) != null) {
+    public String editAdvertisment(HttpServletRequest request, @PathVariable Long id, Model model) {
+        if (this.advertisementService.findById(id).isPresent()) {
             String username = request.getRemoteUser();
 
             Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
-            User user = this.userService.findByUsername(username).orElseThrow(() -> new  UserNotFoundException(username));
+            User user = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
             List<Pet> pets = this.petService.listAll();
 
             model.addAttribute("ad", ad);
             model.addAttribute("user", user);
             model.addAttribute("pets", pets);
-            model.addAttribute("bodyContent","editAdvertisment");
+            model.addAttribute("bodyContent", "addAdvertisement");
             return "master-template";
         }
         return "redirect:/ads";
     }
 
-    @PostMapping("/edit/{id}")
-    public String updateAdvertisment(
-            @PathVariable("id") String id,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam AdType adType,
-            @RequestParam Long petID,
-            @RequestParam String location
-    ) {
-        try {
-            Long adId = Long.parseLong(id);
-            Advertisement ad = advertisementService.findById(adId).orElseThrow(() -> new AdvertisementNotFoundException(adId));
-            Pet pet = petService.findById(petID).orElseThrow(() -> new PetNotFoundException(petID));
-            this.advertisementService.update(adId, title, description, adType, pet, ad.getUser(), location);
-
-            return "redirect:/ads/"+id;
-        } catch (UsernameAlreadyExistsException | InvalidArgumentsException | PasswordsDoNotMatchException | PetNotFoundException ex) {
-            // TODO:
-            return "redirect:/ads/edit?hasError=true&&error=" + ex.getMessage();
-        }
-    }
-
     @PostMapping("/add")
-    public String addAdvertisement(HttpServletRequest request,
-                                   @RequestParam String title,
-                                   @RequestParam String description,
-                                   @RequestParam AdType adType,
-                                   @RequestParam Long pet,
-                                   @RequestParam String location) {
+    public String saveAdvertisement(HttpServletRequest request,
+                                    @RequestParam(required = false) Long id,
+                                    @RequestParam String title,
+                                    @RequestParam String description,
+                                    @RequestParam AdType adType,
+                                    @RequestParam(required = false) Long petId,
+                                    @RequestParam String location) {
+        if(petId==null && !AdType.GIVING.equals(adType)){
+            throw new NullPetException();
+        }
         String username = request.getRemoteUser();
-//        String username = "jovanaM";
 
-        User user1 = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-        Pet p = this.petService.findById(pet).orElseThrow(() -> new PetNotFoundException(pet));
-        this.advertisementService.create(title, description, adType, p, user1, location);
+        User user = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        Pet pet = this.petService.findById(petId).orElseThrow(() -> new PetNotFoundException(petId));
+        if (id != null) {
+            this.advertisementService.update(id, title, description, adType, pet, location);
+        } else {
+            this.advertisementService.create(title, description, adType, pet, user, location);
+        }
 
         return "redirect:/ads";
     }
