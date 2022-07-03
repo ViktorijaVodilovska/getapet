@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!--  <head>-->
 
@@ -67,8 +67,8 @@
               <a th:each="ad:${adsForAdoption}" th:href="@{'/ads/{id}' (id=${ad.getId()})}">
                 <div class="featured-item">
                   <img th:src="${ad.pet.image}" alt="Item 1">
-                  <h4 th:text="${ad.pet.name}">Hedgehog Carl</h4>
-                  <h6 th:text="${ad.user.username}">User 1</h6>
+                  <h4 th:text="${ad.title}"></h4>
+                  <h6 th:text="${ad.user.username}"></h6>
                 </div>
               </a>
             </div>
@@ -94,8 +94,8 @@
               <a th:each="ad:${adsForSale}" th:href="@{'/ads/{id}' (id=${ad.getId()})}">
                 <div class="featured-item">
                   <img th:src="${ad.pet.image}" alt="Item 1">
-                  <h4 th:text="${ad.pet.name}">Hedgehog Carl</h4>
-                  <h6 th:text="${ad.user.username}">User 1</h6>
+                  <h4 th:text="${ad.title}"></h4>
+                  <h6 th:text="${ad.user.username}"></h6>
                 </div>
               </a>
             </div>

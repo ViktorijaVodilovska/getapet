@@ -7,18 +7,17 @@ import java.util.stream.Collectors;
 import com.group18.getapet.model.enumerations.PetGender;
 import com.group18.getapet.model.enumerations.PetSize;
 import com.group18.getapet.model.enumerations.PetType;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.group18.getapet.model.Advertisement;
 import com.group18.getapet.model.Pet;
 import com.group18.getapet.model.User;
 import com.group18.getapet.model.enumerations.AdType;
-import com.group18.getapet.model.exceptions.AdTypeNotFound;
 import com.group18.getapet.repository.AdvertisementRepository;
-import com.group18.getapet.repository.PetRepository;
 import com.group18.getapet.repository.UserRepository;
 import com.group18.getapet.service.AdvertisementService;
+
+import static com.group18.getapet.model.enumerations.Status.INACTIVE;
 
 @Service
 public class AdvertisementServiceImpl implements AdvertisementService {
@@ -45,21 +44,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public void deleteById(Long id) {
         this.advertisementRepository.deleteById(id);
-
-    }
-
-    @Override
-    public Advertisement save(Advertisement advertisement) {
-        User user = advertisement.getUser();
-        user.getAds().add(advertisement);
-        userRepository.save(user);
-        return this.advertisementRepository.save(advertisement);
     }
 
     @Override
     public Advertisement create(String title, String description, AdType adType, Pet pet, User user, String location) {
         Advertisement advertisement = new Advertisement(title, description, adType, pet, user, location);
-        user.getAds().add(advertisement);
         userRepository.save(user);
         return this.advertisementRepository.save(advertisement);
     }
@@ -70,17 +59,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                                 String description,
                                 AdType adType,
                                 Pet pet,
-                                User user,
                                 String location) {
         Advertisement advertisement = this.advertisementRepository.getById(id);
         advertisement.setTitle(title);
         advertisement.setDescription(description);
         advertisement.setAdType(adType);
         advertisement.setPet(pet);
-        advertisement.setUser(user);
         advertisement.setLocation(location);
-        user.getAds().add(advertisement);
-        userRepository.save(user);
         return this.advertisementRepository.save(advertisement);
     }
 
@@ -110,6 +95,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             ads = ads.stream().filter(advertisement -> advertisement.getPet().getAge().equals(petAge)).collect(Collectors.toList());
         }
         return ads;
+    }
+
+    @Override
+    public void deactivate(Advertisement advertisement) {
+                advertisement.setStatus(INACTIVE);
+        this.advertisementRepository.save(advertisement);
+
     }
 
 
