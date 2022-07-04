@@ -1,7 +1,7 @@
 package com.group18.getapet.service.impl;
 
 import com.group18.getapet.model.User;
-import com.group18.getapet.model.enumerations.UserRole;
+import com.group18.getapet.model.enumerations.Role;
 import com.group18.getapet.model.exceptions.*;
 import com.group18.getapet.repository.UserRepository;
 import com.group18.getapet.service.AuthService;
@@ -23,14 +23,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public User register(String username, String password, String repeatPassword, String name, String surname, String number, UserRole role) {
+    public User register(String username, String password, String repeatPassword, String name, String surname, String number) {
         if (username == null || username.isEmpty() || password == null || password.isEmpty())
             throw new InvalidUsernameOrPasswordException();
         if (!password.equals(repeatPassword))
             throw new PasswordsDoNotMatchException();
         if (this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
-        User user = new User(username, passwordEncoder.encode(password), name, surname, number, role);
+        User user = new User(username, passwordEncoder.encode(password), name, surname, number, Role.USER);
         return userRepository.save(user);
     }
 

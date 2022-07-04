@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -28,53 +28,62 @@
 <body>
 
 <div class="container" style="position: relative; top: 150px; margin-bottom: 100px">
-  <div>
-    <a th:href="@{'/ads/add'}">Skip adding pet</a>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <form th:method="POST" th:action="@{'/pets/add'}">
-        <div class="form-group">
-          <label for="name">Pet name</label>
-          <input type="text" name="name" class="form-control" id="name" placeholder="Pet name">
-        </div>
-        <div class="form-group">
-          <label for="petType">Pet type</label>
-          <select name="petType" class="form-control" id="petType">
-            <option th:each="type : ${T(com.group18.getapet.model.enumerations.PetType).values()}"
-                    th:value="${type}" th:text="${type}"></option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="breed">Pet breed</label>
-          <input type="text" class="form-control" id="breed" name="breed" placeholder="Pet breed">
-        </div>
-        <div class="form-group">
-          <label for="age">Age</label>
-          <input type="text" class="form-control" id="age" name="age" placeholder="Pet age">
-        </div>
-        <div class="form-group">
-          <label for="image">Image</label>
-          <input type="text" class="form-control" id="image" name="image" placeholder="Pet image">
-        </div>
-        <div class="form-group">
-          <label for="petSize">Size</label>
-          <select name="petSize" class="form-control" id="petSize">
-            <option th:each="size : ${T(com.group18.getapet.model.enumerations.PetSize).values()}"
-                    th:value="${size}" th:text="${size}"></option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="petGender">Gender</label>
-          <select name="petGender" class="form-control" id="petGender">
-            <option th:each="gender : ${T(com.group18.getapet.model.enumerations.PetGender).values()}"
-                    th:value="${gender}" th:text="${gender}"></option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    <div>
+        <a th:href="@{'/ads/add'}">Skip adding pet</a>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <form th:method="POST" th:action="@{'/pets/add'}">
+                <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')">
+                <div class="form-group">
+                    <label for="name">Pet name</label>
+                    <input type="text"
+                           name="name"
+                           class="form-control"
+                           id="name"
+                           placeholder="Pet name"
+                           th:value="(${pet}!=null ? ${pet.getName()} : '')">
+                </div>
+                <div class="form-group">
+                    <label for="petType">Pet type</label>
+                    <select name="petType" class="form-control" id="petType">
+                        <option th:each="type : ${T(com.group18.getapet.model.enumerations.PetType).values()}"
+                                th:value="(${pet}!=null ? ${pet.getPetType()} : ${type})" th:text="${type}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="breed">Pet breed</label>
+                    <input type="text" class="form-control" id="breed" name="breed" placeholder="Pet breed"
+                           th:value="(${pet}!=null ? ${pet.getBreed()} : '')">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="text" class="form-control" id="age" name="age" placeholder="Pet age"
+                           th:value="(${pet}!=null ? ${pet.getAge()} : '')">
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="text" class="form-control" id="image" name="image" placeholder="Pet image"
+                           th:value="(${pet}!=null ? ${pet.getImage()} : '')">
+                </div>
+                <div class="form-group">
+                    <label for="petSize">Size</label>
+                    <select name="petSize" class="form-control" id="petSize">
+                        <option th:each="size : ${T(com.group18.getapet.model.enumerations.PetSize).values()}"
+                                th:value="${size}" th:text="${size}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="petGender">Gender</label>
+                    <select name="petGender" class="form-control" id="petGender">
+                        <option th:each="gender : ${T(com.group18.getapet.model.enumerations.PetGender).values()}"
+                                th:value="${gender}" th:text="${gender}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 <br>
 <br>

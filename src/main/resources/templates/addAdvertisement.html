@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -48,8 +48,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="pet">Pet</label>
-                    <select name="pet" class="form-control" id="pet">
+                    <label for="petId">Pet</label>
+                    <select name="petId" class="form-control" id="petId">
                         <option th:each="pet : ${pets}"
                                 th:value="${pet.getId()}" th:text="|(${pet.getId()}) ${pet.getName()}|"></option>
                     </select>
@@ -70,7 +70,7 @@
                            class="form-control"
                            id="description"
                            name="description"
-                           th:value="(${ad} != null ? ${ad.getDescription()()} : '')"
+                           th:value="(${ad} != null ? ${ad.getDescription()} : '')"
                            placeholder="Description">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
