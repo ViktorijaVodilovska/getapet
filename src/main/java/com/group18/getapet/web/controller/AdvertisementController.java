@@ -9,17 +9,13 @@ import com.group18.getapet.model.exceptions.*;
 import com.group18.getapet.service.AdvertisementService;
 import com.group18.getapet.service.PetService;
 import com.group18.getapet.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/ads")
@@ -45,10 +41,10 @@ public class AdvertisementController {
             @RequestParam(required = false) Integer petAge,
             Model model) {
         List<Advertisement> advertisementList;
-        if(adType==null && petType == null && petGender == null && petSize == null && petAge==null){
+        if (adType == null && petType == null && petGender == null && petSize == null && petAge == null) {
             advertisementList = this.advertisementService.listAll();
-        }else{
-            advertisementList = this.advertisementService.filterAds(adType,petType,petGender,petSize,petAge);
+        } else {
+            advertisementList = this.advertisementService.filterAds(adType, petType, petGender, petSize, petAge);
         }
         model.addAttribute("advertisementList", advertisementList);
         List<AdType> types = List.of(AdType.values());
@@ -61,18 +57,21 @@ public class AdvertisementController {
         model.addAttribute("petGenders", petGenders);
         List<PetSize> petSizes = List.of(PetSize.values());
         model.addAttribute("petSizes", petSizes);
-        model.addAttribute("bodyContent","ads");
+        model.addAttribute("bodyContent", "ads");
         return "master-template";
     }
+
     @GetMapping("/{id}")
-    public String getAdvertisementById(@PathVariable Long id, Model model) {
+    public String getAdvertisementById(HttpServletRequest request, @PathVariable Long id, Model model) {
+        String loggedInUsername = request.getRemoteUser();
         if (this.advertisementService.findById(id).isPresent()) {
             Advertisement advertisement = this.advertisementService.findById(id)
                     .orElseThrow(() -> new AdvertisementNotFoundException(id));
             model.addAttribute("ad", advertisement);
             model.addAttribute("pet", advertisement.getPet());
             model.addAttribute("user", advertisement.getUser());
-            model.addAttribute("bodyContent","ad-page");
+            model.addAttribute("loggedInUsername", loggedInUsername);
+            model.addAttribute("bodyContent", "ad-page");
             return "master-template";
         }
         return "redirect:/ads?error=Advertisement+was+not+found";
@@ -87,73 +86,61 @@ public class AdvertisementController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize(value = "isAuthenticated()")
     public String addAdvertisement(Model model) {
         List<Pet> pets = this.petService.listAll();
         model.addAttribute("pets", pets);
-        model.addAttribute("bodyContent","addAdvertisement");
+        model.addAttribute("bodyContent", "addAdvertisement");
         model.addAttribute("adTypes", AdType.values());
 
         return "master-template";
     }
 
     @GetMapping("/edit/{id}")
-    public String editAdvertisment(HttpServletRequest request,@PathVariable Long id, Model model) {
-        if (this.advertisementService.findById(id) != null) {
+    @PreAuthorize(value = "isAuthenticated()")
+    public String editAdvertisment(HttpServletRequest request, @PathVariable Long id, Model model) {
+        if (this.advertisementService.findById(id).isPresent()) {
             String username = request.getRemoteUser();
 
             Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
-            User user = this.userService.findByUsername(username).orElseThrow(() -> new  UserNotFoundException(username));
+            User user = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
             List<Pet> pets = this.petService.listAll();
 
             model.addAttribute("ad", ad);
             model.addAttribute("user", user);
             model.addAttribute("pets", pets);
-            model.addAttribute("bodyContent","editAdvertisment");
+            model.addAttribute("bodyContent", "addAdvertisement");
             return "master-template";
         }
         return "redirect:/ads";
     }
 
-    @PostMapping("/edit/{id}")
-    public String updateAdvertisment(
-            @PathVariable("id") String id,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam AdType adType,
-            @RequestParam Long petID,
-            @RequestParam String location
-    ) {
-        try {
-            Long adId = Long.parseLong(id);
-            Advertisement ad = advertisementService.findById(adId).orElseThrow(() -> new AdvertisementNotFoundException(adId));
-            Pet pet = petService.findById(petID).orElseThrow(() -> new PetNotFoundException(petID));
-            this.advertisementService.update(adId, title, description, adType, pet, ad.getUser(), location);
-
-            return "redirect:/ads/"+id;
-        } catch (UsernameAlreadyExistsException | InvalidArgumentsException | PasswordsDoNotMatchException | PetNotFoundException ex) {
-            // TODO:
-            return "redirect:/ads/edit?hasError=true&&error=" + ex.getMessage();
-        }
-    }
-
     @PostMapping("/add")
+    @PreAuthorize(value = "isAuthenticated()")
     public String addAdvertisement(HttpServletRequest request,
+                                   @RequestParam(required = false) Long id,
                                    @RequestParam String title,
                                    @RequestParam String description,
                                    @RequestParam AdType adType,
-                                   @RequestParam Long pet,
+                                   @RequestParam(required = false) Long petId,
                                    @RequestParam String location) {
         String username = request.getRemoteUser();
-//        String username = "jovanaM";
-
-        User user1 = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-        Pet p = this.petService.findById(pet).orElseThrow(() -> new PetNotFoundException(pet));
-        this.advertisementService.create(title, description, adType, p, user1, location);
+        if (petId == null && !AdType.GIVING.equals(adType)) {
+            throw new NullPetException();
+        }
+        User user = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        Pet pet = this.petService.findById(petId).orElseThrow(() -> new PetNotFoundException(petId));
+        if (id != null) {
+            this.advertisementService.update(id, title, description, adType, pet, location);
+        } else {
+            this.advertisementService.create(title, description, adType, pet, user, location);
+        }
 
         return "redirect:/ads";
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteAdvertisement(@PathVariable Long id) {
         if (this.advertisementService.findById(id).isPresent()) {
             this.advertisementService.deleteById(id);
@@ -161,5 +148,16 @@ public class AdvertisementController {
 
         }
         return "redirect:/ads?error=Advertisement+was+not+found";
+    }
+
+    @PostMapping("/deactivate/{id}")
+    public String deactivateAdvertisement(@PathVariable Long id) {
+        Advertisement ad = this.advertisementService.findById(id).orElseThrow(() -> new AdvertisementNotFoundException(id));
+        if (ad.getStatus() == Status.INACTIVE){
+            throw new AdvertisementIsAlreadyDeactivated();
+        }
+            this.advertisementService.deactivate(ad);
+        return "redirect:/ads";
+
     }
 }

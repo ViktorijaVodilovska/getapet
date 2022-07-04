@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -61,11 +61,27 @@
                     <div th:if="${ads.size() > 0}">
                         <span style="color: black;font-size: large;">Advertisements: </span>
                         <ol th:each="ad : ${ads}">
-                            <a th:href="@{'/ads/{id}' (id=${ad.getId()})}"><li th:text="${ad.getTitle()}"></li></a>
+                            <a th:href="@{'/ads/{id}' + id=${ad.getId()}}"><li th:text="${ad.getTitle()}"></li></a>
                         </ol>
                     </div>
                 </div>
             </div>
+            <div>
+                <th:block sec:authorize="isAuthenticated()" th:if="${#request.getRemoteUser()}==${user.getUsername()}">
+                    <a th:href="@{'/pets/edit/' + ${pet.getId()}}" >
+                        <button type="button" class="btn btn-info">Edit</button>
+                    </a>
+                </th:block>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form th:action="@{'/pets/delete/{id}' (id=${pet.getId()})}"
+                          th:method="DELETE">
+                        <button type="submit" class="btn btn-sm btn-danger"><i
+                                class="fa fa-trash">Delete</i>
+                        </button>
+                    </form>
+            </div>
+
         </div>
     </div>
 </div>
