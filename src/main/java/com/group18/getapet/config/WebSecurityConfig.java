@@ -24,8 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/home","/register","/ads").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/","/home/**","/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
@@ -40,12 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password(passwordEncoder.encode("admin"))
-                .authorities("ROLE_ADMIN");
-
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(customUsernamePasswordAuthentication);
     }
 }

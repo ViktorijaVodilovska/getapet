@@ -8,7 +8,7 @@ import javax.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.group18.getapet.model.enumerations.UserRole;
+import com.group18.getapet.model.enumerations.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,16 +23,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "app_users")
 public class User implements UserDetails {
-
     @Id
     private String username;
-
     private String password;
-
     private String name;
-
     private String surname;
-
+    private String image;
     private String phoneNumber;
 
     @OneToMany(mappedBy = "user",
@@ -41,9 +37,18 @@ public class User implements UserDetails {
     private List<Advertisement> ads;
 
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private Role role;
 
-    public User(String username, String password, String name, String surname, String phoneNumber, UserRole role) {
+    public User(String username, String password, String name, String surname, String image, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+    }
+
+    public User(String username, String password, String name, String surname, String phoneNumber, Role role) {
         this.username = username;
         this.password = password;
         this.name = name;

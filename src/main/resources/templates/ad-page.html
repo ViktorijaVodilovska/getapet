@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 
 <head>
 
@@ -44,8 +44,16 @@
                               src="">
                      </div>
                      <div class="details col-md-6">
-                         <h3 class="ad-title" th:text="${ad.getTitle()}"></h3>
-                         <h4 class="ad-title" th:text="${ad.getAdType()}"></h4>
+                         <h7 th:text="${ad.getStatus()}"></h7>
+                         <form th:action="@{'/ads/deactivate/{id}' (id=${ad.getId()})}"
+                               th:method="POST"
+                               sec:authorize="isAuthenticated()" th:if="${#request.getRemoteUser()==user.getUsername()}">
+                             <button type=submit class="btn-info" th:text="DEACTIVATE"></button>
+                         </form>
+                         <h1 class="ad-title" th:text="${ad.getTitle()}"></h1>
+                         <div>
+                             <span style="color: black;font-size: large;">Advertisement type: </span>  <span  class="ad-type" th:text="${ad.getAdType()}">bla</span>
+                         </div>
                          <div class="rating">
                              <div class="stars">
                                  <span class="fa fa-star checked"></span>
@@ -56,17 +64,38 @@
                              </div>
                          </div>
                          <p class="ad-description" th:text="${ad.getDescription()}"></p>
-                         <h5 th:text="${pet.getName()}"></h5>
-                         <h5 th:text="${pet.getPetType()}"></h5>
-                         <form th:href="@{'/pets/{id}' + id=${pet.getId()}}">
-                             <button class="btn btn-light" type="button">More info about the pet</button>
+                         <div>
+                             <span style="color: black;font-size: large;">Pet: </span>  <span th:text="${pet.getName()}"></span>
+                         </div>
+                         <div>
+                             <span style="color: black;font-size: large;">Pet type: </span>  <span th:text="${pet.getPetType()}"></span>
+                         </div>
+                         <form th:action="@{'/pets/{id}'  (id=${pet.getId()})}"
+                               th:method="GET">
+                             <button type="submit" class="btn btn-light">More info about the pet</button>
                          </form>
-                         <h5 th:text="${user.getUsername()}"></h5>
-                         <h5 th:text="${user.getPhoneNumber()}"></h5>
+                         <div>
+                             <span style="color: black;font-size: large;">User: </span>  <a th:href="@{'/profile/' + ${user.getUsername()}}">
+                             <h5 th:text="${user.getUsername()}"></h5>
+                         </a></span>
+                         </div>
+                         <div>
+                             <span style="color: black;font-size: large;">Contact number: </span>  <span th:text="${user.getPhoneNumber()}"></span>
+                         </div>
                      </div>
-                     <a th:href="@{'/ads/edit/' + ${ad.getId()}}" sec:authorize="isAuthenticated()">
-                         <button type="button" class="btn btn-info">Edit</button>
-                     </a>
+                     <th:block sec:authorize="isAuthenticated()" th:if="${#request.getRemoteUser()}==${user.getUsername()}">
+                         <a th:href="@{'/ads/edit/' + ${ad.getId()}}" >
+                             <button type="button" class="btn btn-info">Edit</button>
+                         </a>
+                     </th:block>
+                     <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                         <form th:action="@{'/ads/delete/{id}' (id=${ad.getId()})}"
+                               th:method="DELETE"  >
+                             <button type="submit" class="btn btn-sm btn-danger"><i
+                                     class="fa fa-trash">Delete</i>
+                             </button>
+                         </form>
+                     </div>
                  </div>
              </div>
          </div>

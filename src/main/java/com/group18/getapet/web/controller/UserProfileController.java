@@ -41,15 +41,15 @@ public class UserProfileController {
         return "master-template";
     }
 
-//    @GetMapping("/{username}")
-//    public String getProfilePageByUsername(@PathVariable String username, Model model, HttpServletRequest request) {
-//        User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-//        List<Advertisement> ads = advertisementService.listAllByUser(user);
-//        model.addAttribute("user", user);
-//        model.addAttribute("userAds", ads);
-//        model.addAttribute("bodyContent", "user");
-//        return "master-template";
-//    }
+    @GetMapping("/{username}")
+    public String getProfilePageByUsername(@PathVariable String username, Model model, HttpServletRequest request) {
+        User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        List<Advertisement> ads = advertisementService.listAllByUser(user);
+        model.addAttribute("user", user);
+        model.addAttribute("userAds", ads);
+        model.addAttribute("bodyContent", "user");
+        return "master-template";
+    }
 
     @GetMapping("/edit/{username}")
     public String editProfile(Model model, HttpServletRequest request, @PathVariable("username") String username) {
@@ -64,15 +64,14 @@ public class UserProfileController {
     @PostMapping("/edit/{username}")
     public String saveInfo(
             HttpServletRequest request,
+            @PathVariable("username") String username,
+            @RequestParam (required = false) String image,
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String phoneNumber
     ) {
         try {
-            String username = request.getRemoteUser();
-            User user = userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-            this.userService.update(username, user.getPassword(), name, surname, phoneNumber, user.getRole());
-
+            this.userService.update(username, name, surname, image, phoneNumber);
             return "redirect:/profile";
         } catch (UsernameAlreadyExistsException | InvalidArgumentsException | PasswordsDoNotMatchException ex) {
             // TODO:

@@ -17,6 +17,8 @@ import com.group18.getapet.repository.AdvertisementRepository;
 import com.group18.getapet.repository.UserRepository;
 import com.group18.getapet.service.AdvertisementService;
 
+import static com.group18.getapet.model.enumerations.Status.INACTIVE;
+
 @Service
 public class AdvertisementServiceImpl implements AdvertisementService {
 
@@ -93,6 +95,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             ads = ads.stream().filter(advertisement -> advertisement.getPet().getAge().equals(petAge)).collect(Collectors.toList());
         }
         return ads;
+    }
+
+    @Override
+    public void deactivate(Advertisement advertisement) {
+                advertisement.setStatus(INACTIVE);
+        this.advertisementRepository.save(advertisement);
+
     }
 
 

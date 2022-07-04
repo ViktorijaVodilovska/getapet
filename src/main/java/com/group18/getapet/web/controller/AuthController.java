@@ -1,9 +1,6 @@
 package com.group18.getapet.web.controller;
 
-import com.group18.getapet.model.User;
-import com.group18.getapet.model.enumerations.UserRole;
 import com.group18.getapet.model.exceptions.InvalidArgumentsException;
-import com.group18.getapet.model.exceptions.InvalidUserCredentialsException;
 import com.group18.getapet.model.exceptions.PasswordsDoNotMatchException;
 import com.group18.getapet.service.AuthService;
 import org.springframework.stereotype.Controller;
@@ -55,23 +52,6 @@ public class AuthController {
 
         return "master-template";
     }
-
-    @PostMapping("/login")
-    public String login(HttpServletRequest request, Model model) {
-        User user = null;
-        try{
-            user = this.authService.login(request.getParameter("username"),
-                    request.getParameter("password"));
-            request.getSession().setAttribute("user", user);
-            return "redirect:/home";
-        }
-        catch (InvalidUserCredentialsException exception) {
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", exception.getMessage());
-            return "redirect:/login";
-        }
-    }
-
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();

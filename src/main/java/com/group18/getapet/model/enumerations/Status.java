@@ -1,6 +1,5 @@
 package com.group18.getapet.model.enumerations;
 
-public enum UserRole {
-    ADMIN,
-    USER
+public enum Status {
+    ACTIVE, INACTIVE
 }

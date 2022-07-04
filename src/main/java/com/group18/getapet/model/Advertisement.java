@@ -1,5 +1,6 @@
 package com.group18.getapet.model;
 
+import com.group18.getapet.model.enumerations.Status;
 import com.group18.getapet.model.enumerations.AdType;
 import lombok.Data;
 import lombok.Setter;
@@ -29,6 +30,9 @@ public class Advertisement {
 
     private String location;
 
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+
     public Advertisement(String title, String description, AdType adType, Pet pet, User user, String location) {
         this.title = title;
         this.description = description;
@@ -36,6 +40,7 @@ public class Advertisement {
         this.pet = pet;
         this.user = user;
         this.location = location;
+        this.status = Status.ACTIVE;
     }
 
     public Advertisement() {

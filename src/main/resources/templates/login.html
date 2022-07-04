@@ -26,7 +26,74 @@
     -->
 </head>
 <body>
-<div class="container">
+<section class="vh-100" style="padding-top: 50px;">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form method="post" action="/login">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="username" name="username" class="form-control form-control-lg"
+                               placeholder="Enter your username" />
+                        <label class="form-label" for="username">Username</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <input type="password" id="password" name="password" class="form-control form-control-lg"
+                               placeholder="Enter password" />
+                        <label class="form-label" for="password">Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;" >Login</button>
+                </form>
+
+                <div class="text-center text-lg-start mt-4 pt-2">
+                    <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a th:href="@{/register}"
+                                                                                      class="link-danger">Register</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+        <!-- Copyright -->
+        <div class="text-white mb-3 mb-md-0">
+            Copyright © 2022. All rights reserved.
+        </div>
+        <!-- Copyright -->
+        <!-- Right -->
+    </div>
+</section>
+<!-- Bootstrap core JavaScript -->
+<script src="/jquery/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- Additional Scripts -->
+<script src="/js/custom.js"></script>
+<script src="/js/owl.js"></script>
+<script src="/js/isotope.js"></script>
+<script src="/js/flex-slider.js"></script>
+
+
+<script language = "text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t){                   //declaring the array outside of the
+        if(! cleared[t.id]){                      // function makes it static and global
+            cleared[t.id] = 1;  // you could use true and false, but that's more typing
+            t.value='';         // with more chance of typos
+            t.style.color='#fff';
+        }
+    }
+</script>
+</body>
+</html>
+<!--<div class="container">
     <form class="form-signin mt-xl-5" method="post" action="/login">
         <h2 class="form-signin-heading">Sign in</h2>
         <p>
@@ -44,6 +111,4 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
     <a href="/register" class="btn btn-block btn-light">Register here</a>
-</div>
-</body>
-</html>
+</div>-->
