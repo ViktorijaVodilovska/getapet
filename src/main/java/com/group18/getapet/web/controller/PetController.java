@@ -8,21 +8,23 @@ import com.group18.getapet.model.enumerations.PetType;
 import com.group18.getapet.model.exceptions.PetNotFoundException;
 import com.group18.getapet.service.AdvertisementService;
 import com.group18.getapet.service.PetService;
-import com.group18.getapet.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/pets")
 public class PetController {
     private final PetService petService;
+    private final AdvertisementService advertisementService;
 
-    public PetController(PetService petService) {
+    public PetController(PetService petService, AdvertisementService advertisementService) {
         this.petService = petService;
+        this.advertisementService = advertisementService;
     }
 
 
@@ -30,8 +32,10 @@ public class PetController {
     public String getPetById(@PathVariable Long id, Model model) {
         Pet pet = this.petService.findById(id).orElseThrow(() -> new PetNotFoundException(id));
         List<Advertisement> ads = pet.getAds();
+        List<Advertisement> adsWithPetType = this.advertisementService.filterAds(null,pet.getPetType(),null,null,null).stream().limit(12).collect(Collectors.toList());
         model.addAttribute("pet", pet);
         model.addAttribute("ads", ads);
+        model.addAttribute("adsWithPetType", adsWithPetType);
         model.addAttribute("user", ads.get(0).getUser());
         model.addAttribute("bodyContent", "pet-page");
         return "master-template";

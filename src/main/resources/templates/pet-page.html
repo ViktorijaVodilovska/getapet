@@ -99,67 +99,11 @@
                 </div>
                 <div class="col-md-12">
                     <div class="owl-carousel owl-theme">
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-01.jpg" alt="Item 1">
-                                <h4>Hedgehog</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-02.jpg" alt="Item 2">
-                                <h4>Dog</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-03.jpg" alt="Item 3">
-                                <h4>Rabbit</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-04.jpg" alt="Item 4">
-                                <h4>Cat</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-05.jpg" alt="Item 5">
-                                <h4>Catt</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-06.jpg" alt="Item 6">
-                                <h4>Dog</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-04.jpg" alt="Item 7">
-                                <h4>Cat</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-05.jpg" alt="Item 8">
-                                <h4>Cat</h4>
-                                <h6>Skopje</h6>
-                            </div>
-                        </a>
-                        <a href="ad-page.html">
-                            <div class="featured-item">
-                                <img src="/images/item-06.jpg" alt="Item 9">
-                                <h4>Dog</h4>
-                                <h6>Skopje</h6>
+                        <a th:each="ad:${adsWithPetType}" th:href="@{'/ads/{id}' (id=${ad.getId()})}">
+                            <div class="featured-item" >
+                                <img th:src="${ad.pet.image}" alt="Item 1" class="responsive-image" width="221px" height="250px">
+                                <h4 th:text="${ad.title}"></h4>
+                                <h6 th:text="${ad.user.username}"></h6>
                             </div>
                         </a>
                     </div>
