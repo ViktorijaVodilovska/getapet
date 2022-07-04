@@ -30,7 +30,7 @@ public class CustomUsernamePasswordAuthentication implements AuthenticationProvi
         }
         UserDetails userDetails = this.userService.loadUserByUsername(username);
 
-        if (passwordEncoder.matches(password,userDetails.getPassword())){
+        if (passwordEncoder.matches(passwordEncoder.encode(password),userDetails.getPassword())){
             throw new BadCredentialsException("Invalid Credentials");
         }
 

@@ -15,8 +15,8 @@
 	<description>Demo project for Get A Pet</description>
 	<properties>
 		<java.version>18</java.version>
-		<springSecurity.version>5.6.2</springSecurity.version>
-		<springBoot.version>2.6.6</springBoot.version>
+		<springSecurity.version>5.7.1</springSecurity.version>
+		<springBoot.version>2.7.0</springBoot.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -61,12 +61,6 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${springSecurity.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${springBoot.version}</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
