@@ -4,8 +4,10 @@ Get a pet is a simple web application which aims to connect pet lovers in order 
 
 Get a Pet is only a directory of pet ads. No information in Get a Pet is guaranteed. Although the information on Get a Pet is updated frequently, it is always best to call the owner that lists the pet to be ensured it is still available and the information is accurate.
 
+### Design
+##### Home page
 ![Alt text](src/main/resources/static/images/home_screen.png?raw=true "Home page")
-
+##### Pet ads page
 ![Alt text](src/main/resources/static/images/ads_page.png?raw=true "Ads page")
 
 ### Requirements
