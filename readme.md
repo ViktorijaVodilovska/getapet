@@ -7,10 +7,10 @@ Get a Pet is only a directory of pet ads. No information in Get a Pet is guarant
 ### Design
 
 ##### Home page
-![Home page](src/main/resources/static/images/home_screen.png?raw=true "Home page")
+![Home page](src/main/resources/static/images/home_screen.png)
 
 ##### Pet ads page
-![Pet ads page](src/main/resources/static/images/ads_page.png "Ads page")
+![Pet ads page](src\main\resources\static\images\ads_page.png)
 
 ### Requirements
 * PostgreSQL 14
