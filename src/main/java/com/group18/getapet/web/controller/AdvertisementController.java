@@ -125,7 +125,7 @@ public class AdvertisementController {
                                    @RequestParam(required = false) Long petId,
                                    @RequestParam String location) {
         String username = request.getRemoteUser();
-        if (petId == null && !AdType.GIVING.equals(adType)) {
+        if (petId == null && !AdType.ADOPTION.equals(adType)) {
             throw new NullPetException();
         }
         User user = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));

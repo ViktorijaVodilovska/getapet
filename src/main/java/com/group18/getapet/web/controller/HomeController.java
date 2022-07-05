@@ -31,7 +31,7 @@ public class HomeController {
     @GetMapping
     public String seeAds(Model model) {
         List<Advertisement> adsForSale = this.adsservice.listAllByAdType(AdType.SELLING).stream().limit(12).collect(Collectors.toList());
-        List<Advertisement> adsForAdoption = this.adsservice.listAllByAdType(AdType.GIVING).stream().limit(12).collect(Collectors.toList());
+        List<Advertisement> adsForAdoption = this.adsservice.listAllByAdType(AdType.ADOPTION).stream().limit(12).collect(Collectors.toList());
 
         model.addAttribute("adsForSale", adsForSale);
         model.addAttribute("adsForAdoption", adsForAdoption);
